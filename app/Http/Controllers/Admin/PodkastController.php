@@ -5,33 +5,32 @@ namespace App\Http\Controllers\Admin;
 use App\Actions\CRUD;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PodkastRequest;
-use App\Models\Author;
-use App\Models\Category;
+use App\Models\Genre;
 use App\Models\Podkast;
 use Illuminate\Http\Request;
 
 class PodkastController extends Controller
 {
     protected $modelName = 'App\Models\Podkast';
+    protected $photoFolderName = 'podkast';
     protected $audioFolderName = 'podkast';
 
     public function index()
     {
-        $categories = Category::get();
-        $authors = Author::get();
-        $podkasts = Podkast::with('category', 'author')->get();
-        return view('Admin.Crud.podkast', compact('podkasts', 'categories', 'authors'));
+        $genres = Genre::get();
+        $podcasts = Podkast::with('genre')->get();
+        return view('Admin.Crud.podkast', compact('podcasts', 'genres'));
     }
 
     public function store(PodkastRequest $request)
     {
-        CRUD::create($this->modelName, $request, null, $this->audioFolderName);
+        CRUD::create($this->modelName, $request, $this->photoFolderName, $this->audioFolderName);
         return back()->with('success', 'Maglumat üstünlikli goşuldy');
     }
 
     public function update(PodkastRequest $request, $id)
     {
-        CRUD::update($this->modelName, $request, $id, null, $this->audioFolderName);
+        CRUD::update($this->modelName, $request, $id, $this->photoFolderName, $this->audioFolderName);
         return redirect()->route('podkasts.index')->with('success', 'Maglumat üstünlikli üýtgedildi');
     }
 

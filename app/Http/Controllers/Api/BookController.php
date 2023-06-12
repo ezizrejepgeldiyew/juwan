@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Book;
@@ -26,5 +26,17 @@ class BookController extends Controller
         $bookCategoryId = Book::select('category_id')->groupBy('category_id')->get()->pluck('category_id');
         $data = Category::find($bookCategoryId);
         return response()->json(compact('data'), 200);
+    }
+
+    public function search()
+    {
+        $search = request('search');
+        $books = Book::with('author', 'genre')->where('name', 'like', '%' . $search . '%')
+            ->orWhereHas('author', function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%');
+            })->orWhereHas('genre', function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%');
+            })->get();
+        return response()->json($books, 200);
     }
 }

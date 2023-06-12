@@ -1,7 +1,7 @@
 @extends('layouts.app2')
 @section('skilet')
     <div class="min-height-200px">
-        <x-breadcrumb title="Žanyrlar" put="genres"></x-breadcrumb>
+        <x-breadcrumb title="{{ __('Genres') }}" put="genres"></x-breadcrumb>
 
         <div class="card-box mb-30">
             <div class="pd-20">
@@ -19,15 +19,17 @@
                                     <span class="dt-checkbox-label"></span>
                                 </div>
                             </th>
-                            <th>Name</th>
-                            <th>Start date</th>
-                            <th class="datatable-nosort">Action</th>
+                            <th>{{ __('Image') }}</th>
+                            <th>{{ __('Name') }}</th>
+                            <th>{{ __('Created_at') }}</th>
+                            <th class="datatable-nosort">{{ __('Action') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($genres as $genre)
                             <tr>
                                 <td>{{ $genre->id }}</td>
+                                <td><img src="{{ asset($genre->photo) }}" width="100" alt=""></td>
                                 <td>{{ $genre->name }}</td>
                                 <td>{{ $genre->created_at }}</td>
                                 <td>
@@ -38,23 +40,22 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                                             <a class="dropdown-item" data-toggle="modal" data-target="#bd-example-modal-lg"
-                                                type="button" href="#"><i class="dw dw-eye"></i> View</a>
+                                                type="button" href="#"><i class="dw dw-eye"></i>
+                                                {{ __('View') }}</a>
                                             <a class="dropdown-item" data-toggle="modal"
                                                 data-target="#update{{ $genre->id }}" type="button" href="#"><i
-                                                    class="dw dw-edit2"></i> Edit</a>
+                                                    class="dw dw-edit2"></i> {{ __('Edit') }}</a>
 
                                             <form action="{{ route('genres.destroy', $genre->id) }}" method="POST">
                                                 @csrf @method('DELETE')
-                                                <button class="dropdown-item" type="submit"><i
-                                                        class="dw dw-delete-3"></i>Delete</button>
+                                                <button class="dropdown-item" type="submit"><i class="dw dw-delete-3"></i>
+                                                    {{ __('Delete') }}</button>
                                             </form>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
                         @endforeach
-
-
                     </tbody>
                 </table>
             </div>
@@ -68,7 +69,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="myLargeModalLabel">
-                        Create
+                        {{ __('Create') }}
                     </h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         ×
@@ -76,17 +77,23 @@
                 </div>
                 <div class="modal-body">
 
-                    <form action="{{ route('genres.store') }}" method="POST"> @csrf
+                    <form action="{{ route('genres.store') }}" method="POST" enctype="multipart/form-data"> @csrf
                         <div class="form-group">
-                            <label>Name</label>
-                            <input class="form-control" id="name" type="text" name="name" required>
+                            <label>{{ __('Image') }}</label>
+                            <input type="file" class="form-control" name="photo" onchange="previewFile(this)">
+                            <img id="previewImg" alt="profile image" src="{{ asset('images/default-image.jpg') }}"
+                                style="max-width: 130px; margin-top: 20px;">
+                        </div>
+                        <div class="form-group">
+                            <label>{{ __('Name') }}</label>
+                            <input class="form-control" id="name" type="text" name="name">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                Ýatyr
+                                {{ __('Close') }}
                             </button>
                             <button type="submit" class="btn btn-success">
-                                Goş
+                                {{ __('Save') }}
                             </button>
                         </div>
                     </form>
@@ -104,25 +111,30 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="myLargeModalLabel">
-                            Update
+                            {{ __('Edit') }}
                         </h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                             ×
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ route('genres.update', $genre->id) }}" method="POST"> @csrf
+                        <form action="{{ route('genres.update', $genre->id) }}" method="POST"
+                            enctype="multipart/form-data"> @csrf
                             @method('PUT')
                             <div class="form-group">
-                                <label>Name</label>
+                                <label>{{ __('Image') }}</label>
+                                <input type="file" class="form-control" name="photo">
+                            </div>
+                            <div class="form-group">
+                                <label>{{ __('Name') }}</label>
                                 <input class="form-control" type="text" name="name" value="{{ $genre->name }}">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                    Ýatyr
+                                    {{ __('Close') }}
                                 </button>
                                 <button type="submit" class="btn btn-success">
-                                    Üýtget
+                                    {{ __('Change') }}
                                 </button>
                             </div>
                         </form>

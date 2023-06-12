@@ -7,9 +7,9 @@
     <title>Juwan</title>
 
     <!-- Site favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href={{ asset('images/Frame 74.svg') }} />
-    <link rel="icon" type="image/png" sizes="32x32" href={{ asset('images/Frame 74.svg') }} />
-    <link rel="icon" type="image/png" sizes="16x16" href={{ asset('images/Frame 74@2x.png') }} />
+    <link rel="apple-touch-icon" sizes="180x180" href={{ asset('images/Juwan-logos.svg') }} />
+    <link rel="icon" type="image/png" sizes="32x32" href={{ asset('images/Juwan-logos.svg') }} />
+    <link rel="icon" type="image/png" sizes="16x16" href={{ asset('images/Juwan-logos.png') }} />
 
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -67,22 +67,9 @@
     <!-- End Google Tag Manager -->
 </head>
 
-<body class="sidebar-light">
-    {{-- <div class="pre-loader">
-        <div class="pre-loader-box">
-            <div class="loader-logo">
-                <img src="{{ asset('vendors/images/deskapp-logo.svg') }}" alt="" />
-            </div>
-            <div class="loader-progress" id="progress_div">
-                <div class="bar" id="bar1"></div>
-            </div>
-            <div class="percent" id="percent1">0%</div>
-            <div class="loading-text">Loading...</div>
-        </div>
-    </div> --}}
+<body class="sidebar-light active">
     <div class="header">
         <div class="header-left">
-
             <div class="menu-icon bi bi-list"></div>
         </div>
 
@@ -140,112 +127,19 @@
 
         </div>
     </div>
-    {{-- <div class="right-sidebar">
-        <div class="sidebar-title">
-            <h3 class="weight-600 font-16 text-blue">
-                Layout Settings
-                <span class="btn-block font-weight-400 font-12">User Interface Settings</span>
-            </h3>
-            <div class="close-sidebar" data-toggle="right-sidebar-close">
-                <i class="icon-copy ion-close-round"></i>
-            </div>
-        </div>
-        <div class="right-sidebar-body customscroll">
-            <div class="right-sidebar-body-content">
-                <h4 class="weight-600 font-18 pb-10">Header Background</h4>
-                <div class="sidebar-btn-group pb-30 mb-10">
-                    <a href="javascript:void(0);" class="btn btn-outline-primary header-white active">White</a>
-                    <a href="javascript:void(0);" class="btn btn-outline-primary header-dark">Dark</a>
-                </div>
 
-                <h4 class="weight-600 font-18 pb-10">Sidebar Background</h4>
-                <div class="sidebar-btn-group pb-30 mb-10">
-                    <a href="javascript:void(0);" class="btn btn-outline-primary sidebar-light">White</a>
-                    <a href="javascript:void(0);" class="btn btn-outline-primary sidebar-dark active">Dark</a>
-                </div>
-
-                <h4 class="weight-600 font-18 pb-10">Menu Dropdown Icon</h4>
-                <div class="sidebar-radio-group pb-10 mb-10">
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="sidebaricon-1" name="menu-dropdown-icon"
-                            class="custom-control-input" value="icon-style-1" checked="" />
-                        <label class="custom-control-label" for="sidebaricon-1"><i
-                                class="fa fa-angle-down"></i></label>
-                    </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="sidebaricon-2" name="menu-dropdown-icon"
-                            class="custom-control-input" value="icon-style-2" />
-                        <label class="custom-control-label" for="sidebaricon-2"><i
-                                class="ion-plus-round"></i></label>
-                    </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="sidebaricon-3" name="menu-dropdown-icon"
-                            class="custom-control-input" value="icon-style-3" />
-                        <label class="custom-control-label" for="sidebaricon-3"><i
-                                class="fa fa-angle-double-right"></i></label>
-                    </div>
-                </div>
-
-                <h4 class="weight-600 font-18 pb-10">Menu List Icon</h4>
-                <div class="sidebar-radio-group pb-30 mb-10">
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="sidebariconlist-1" name="menu-list-icon"
-                            class="custom-control-input" value="icon-list-style-1" checked="" />
-                        <label class="custom-control-label" for="sidebariconlist-1"><i
-                                class="ion-minus-round"></i></label>
-                    </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="sidebariconlist-2" name="menu-list-icon"
-                            class="custom-control-input" value="icon-list-style-2" />
-                        <label class="custom-control-label" for="sidebariconlist-2"><i class="fa fa-circle-o"
-                                aria-hidden="true"></i></label>
-                    </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="sidebariconlist-3" name="menu-list-icon"
-                            class="custom-control-input" value="icon-list-style-3" />
-                        <label class="custom-control-label" for="sidebariconlist-3"><i
-                                class="dw dw-check"></i></label>
-                    </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="sidebariconlist-4" name="menu-list-icon"
-                            class="custom-control-input" value="icon-list-style-4" checked="" />
-                        <label class="custom-control-label" for="sidebariconlist-4"><i
-                                class="icon-copy dw dw-next-2"></i></label>
-                    </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="sidebariconlist-5" name="menu-list-icon"
-                            class="custom-control-input" value="icon-list-style-5" />
-                        <label class="custom-control-label" for="sidebariconlist-5"><i
-                                class="dw dw-fast-forward-1"></i></label>
-                    </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="sidebariconlist-6" name="menu-list-icon"
-                            class="custom-control-input" value="icon-list-style-6" />
-                        <label class="custom-control-label" for="sidebariconlist-6"><i
-                                class="dw dw-next"></i></label>
-                    </div>
-                </div>
-
-                <div class="reset-options pt-30 text-center">
-                    <button class="btn btn-danger" id="reset-settings">
-                        Reset Settings
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div> --}}
     <div class="left-side-bar">
         <div class="brand-logo">
+
             <a href="index.html">
                 <img src="{{ asset('images/Juwan logo.svg') }}" alt="" class="dark-logo" />
-                <img src="{{ asset('images/Juwan logo.svg') }}" alt="" class="light-logo" />
             </a>
             <div class="close-sidebar" data-toggle="left-sidebar-close">
                 <i class="ion-close-round"></i>
             </div>
         </div>
         <div class="menu-block customscroll">
-            <div class="sidebar-menu">
+            <div class="sidebar-menu ">
                 <ul id="accordion-menu">
                     <li>
                         <a href="{{ route('index') }}"
@@ -289,6 +183,14 @@
                         <a href="{{ route('books.index') }}"
                             class="dropdown-toggle no-arrow @if (Request::routeIs('books.index')) active @endif">
                             <span class="micon fa fa-book"></span><span class="mtext">{{ __('Books') }}</span></a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('favorites.index') }}"
+                            class="dropdown-toggle no-arrow @if (Request::routeIs('favorites.index')) active @endif">
+                            <span
+                                class="micon fa @if (Request::routeIs('favorites.index')) fa-heart @else fa-heart-o @endif"></span><span
+                                class="mtext">{{ __('Favorites') }}</span></a>
                     </li>
 
                     <li class="dropdown">
@@ -340,7 +242,7 @@
             </div>
         </div>
     </div>
-    <div class="mobile-menu-overlay"></div>
+    <div class="mobile-menu-overlay"></div> 
 
     <div class="main-container">
         <div class="xs-pd-20-10 pd-ltr-20">
@@ -361,7 +263,6 @@
 
             <div class="footer-wrap pd-20 mb-20 card-box">
                 Juwan
-                <a href="https://turkmenportal.com" target="_blank"></a>
             </div>
         </div>
     </div>
@@ -384,6 +285,7 @@
     </script>
     <!-- js -->
 
+    <script src="{{ asset('js/previewImg.js') }}"></script>
 
     <script src="{{ asset('vendors/scripts/core.js') }}"></script>
     <script src="{{ asset('vendors/scripts/script.min.js') }}"></script>

@@ -26,7 +26,7 @@ class PostVideoController extends Controller
     public function store(Request $request)
     {
         $postVideo = CRUD::create($this->modelName, $request, null, null, $this->videoFolderName);
-        
+
         $add = new Post();
         $add->relationable_id = $postVideo->id;
         $add->relationable_type = $this->modelName;

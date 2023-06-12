@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('podkasts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->integer('author_id');
-            $table->integer('category_id');
+            $table->text('photo');
+            $table->integer('genre_id');
             $table->text('audio');
-            $table->text('text');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }

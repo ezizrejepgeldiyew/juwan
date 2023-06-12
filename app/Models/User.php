@@ -3,11 +3,13 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class User extends Authenticatable
 {
@@ -20,11 +22,14 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
         'surname',
+        'avatar',
+        'email',
+        'phone',
+        'last_otp_id',
         'password',
-        'isAdmin',
-        'last_seen'
+        'device',
+        'last_seen',
     ];
 
     /**
@@ -45,4 +50,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected function getEmailAttribute($email)
+    {
+        return $email == '' ? $email = '-' : $email;
+    }
 }

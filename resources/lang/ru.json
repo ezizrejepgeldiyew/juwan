@@ -1,6 +1,12 @@
 {
-
+    "Change": "Изменять",
+    "Post": "Пост",
+    "Photos": "Фото",
+    "Videos": "Видео",
+    "Quantity": "Количество",
+    "Favorites": "Избранное",
     "Genres": "Жанры",
+    "Genre": "Жанр",
     "Total": "Общий",
     "Created_at": "Создан",
     "Audio": "Аудио",

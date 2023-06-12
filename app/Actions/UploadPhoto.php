@@ -2,15 +2,17 @@
 
 namespace App\Actions;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 
-class UploadPhoto 
+class UploadPhoto
 {
     public static function create(Request $request, $photoFolderName)
     {
         $date = date('Y-m-d');
-        $photoName = $request->photo->getClientOriginalName();
+        $photoName = md5($request->photo->getClientOriginalName() . time()) . '.' . $request->photo->extension();
         $photoPath = "images/{$photoFolderName}/{$date}";
         $request->photo->move(public_path($photoPath), $photoName);
         return "$photoPath/$photoName";
@@ -22,7 +24,7 @@ class UploadPhoto
             if ($oldPhotoName) {
                 File::delete($oldPhotoName);
             }
-            return static::create($request,$photoFolderName);
+            return static::create($request, $photoFolderName);
         }
         return $oldPhotoName;
     }

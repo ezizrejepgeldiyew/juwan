@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Posts;
 
-use App\Http\Controllers\Controller;
 use App\Models\Post;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
 class PostController extends Controller
 {

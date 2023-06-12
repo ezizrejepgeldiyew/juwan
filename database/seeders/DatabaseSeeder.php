@@ -18,11 +18,10 @@ class DatabaseSeeder extends Seeder
         \App\Models\Category::factory(10)->create();
         \App\Models\Author::factory(10)->create();
         \App\Models\Genre::factory(10)->create();
-        // BookFactory::factory(10)->create();
-        // $this->call([
-        //     // RoleSeeder::class,
-        //     // AdminSeeder::class,
-        //     BookFactory::class
-        // ]);
+        $this->call([
+            RoleSeeder::class,
+            AdminSeeder::class,
+            BookFactory::class
+        ]);
     }
 }

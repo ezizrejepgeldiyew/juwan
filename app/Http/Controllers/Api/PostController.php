@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
@@ -11,7 +11,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $data = Post::with('relation')->get();
+        $data = Post::with('relation')->paginate(2);
         return response()->json(compact('data'), 200);
     }
 

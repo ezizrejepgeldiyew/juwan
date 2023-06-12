@@ -9,11 +9,16 @@ class Genre extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'photo'];
 
     public function book()
     {
         return $this->hasMany(Book::class);
+    }
+
+    public function podcast()
+    {
+        return $this->hasMany(Podkast::class);
     }
 
     public static function boot()
@@ -22,6 +27,7 @@ class Genre extends Model
 
         static::deleted(function ($genre) {
             $genre->book()->delete();
+            $genre->podcast()->delete();
         });
     }
 }

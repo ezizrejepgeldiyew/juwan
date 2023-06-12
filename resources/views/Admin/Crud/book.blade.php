@@ -225,7 +225,6 @@
         </div>
     @endforeach
 
-    <script src="{{ asset('js/previewImg.js') }}"></script>
     <script>
         $('#select-delete').click(function() {
             var arr_id = [];

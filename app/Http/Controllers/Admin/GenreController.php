@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 
 class GenreController extends Controller
 {
+    protected $modelName = 'App\Models\Genre';
+    protected $photoFolderName = 'genre';
 
     public function index()
     {
@@ -18,10 +20,10 @@ class GenreController extends Controller
 
     public function store(Request $request)
     {
-        Genre::create($request->all());
+        CRUD::create($this->modelName, $request, $this->photoFolderName);
         return back()->with('success', 'Maglumat üstünlikli goşuldy');
     }
-    public function update(Request $request,Genre $genre)
+    public function update(Request $request, Genre $genre)
     {
         $genre->update($request->all());
         return redirect()->route('genres.index')->with('success', 'Maglumat üstünlikli üýtgedildi');
@@ -35,6 +37,6 @@ class GenreController extends Controller
     public function selectDeleteGenres()
     {
         Genre::destroy(request('id'));
-        return response()->json("success",200);
+        return response()->json("success", 200);
     }
 }

@@ -24,10 +24,9 @@ class PodkastRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'author_id' => 'required',
-            'category_id' => 'required',
+            'genre_id' => 'required',
+            'photo' => 'required|mimes:png,jpg,jpeg,svg',
             'audio' => 'required|mimes:mp3',
-            'text' => 'required'
         ];
     }
 }

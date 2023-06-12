@@ -104,7 +104,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="myLargeModalLabel">
-                            {{ __('Update') }}
+                            {{ __('Edit') }}
                         </h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                             ×
@@ -114,15 +114,15 @@
                         <form action="{{ route('categories.update', $category->id) }}" method="POST"> @csrf
                             @method('PUT')
                             <div class="form-group">
-                                <label>Name</label>
+                                <label>{{ __('Name') }}</label>
                                 <input class="form-control" type="text" name="name" value="{{ $category->name }}">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                    Ýatyr
+                                    {{ __('Close') }}
                                 </button>
                                 <button type="submit" class="btn btn-success">
-                                    Üýtget
+                                    {{ __('Change') }}
                                 </button>
                             </div>
                         </form>
