@@ -2,36 +2,35 @@
 
 namespace App\Http\Controllers\API\Auth;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\API\ErrorResource;
+use App\Http\Resources\API\UserResource;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
-     /**
+    /**
      * login api
      *
      * @return \Illuminate\Http\Response
      */
     public function login(Request $request)
     {
-        $request->validate([
-            'phone' => 'required|min:8',
-            'password' => 'required|min:8'
-        ]);
 
-        $user = User::where('phone', $request->phone)->first();
-
-        if (! $user || ! Hash::check($request->password, $user->password)) {
-            return response([
-                'message' => ['The provided credentials are incorrect.']
-            ], 500);
+        if (Auth::attempt([
+            'phone' => $request->phone,
+            'password' => $request->password
+        ])) {
+            $authUser = Auth::user();
+            $authUser['user'] = Auth::user();
+            $authUser['token'] =  $authUser->createToken('juwan-token')->plainTextToken;
+            return UserResource::make($authUser);
+        } else {
+            return ErrorResource::make([
+                'error_code' => 401,
+                'message' => 'Unauthorised'
+            ]);
         }
-
-        $userToken = $user->createToken('api-token')->plainTextToken;
-
-        return response(['token' => $userToken], 200);
     }
 }
