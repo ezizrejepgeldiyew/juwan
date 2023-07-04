@@ -5,7 +5,7 @@ return [
         'flag-icon' => 'us'
     ],
     'ru' => [
-        'display' => 'Russia',
+        'display' => 'Russian',
         'flag-icon' => 'ru'
     ],
     'tk' => [
