@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Actions\CRUD;
-use App\Http\Controllers\Controller;
 use App\Models\Author;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class AuthorController extends Controller
 {

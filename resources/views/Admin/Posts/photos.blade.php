@@ -36,7 +36,7 @@
                                             @php
                                                 $a = 0;
                                             @endphp
-                                            @foreach (json_decode($postPhoto->photos) as $photo)
+                                            @foreach ($postPhoto->photos as $photo)
                                                 <div class="carousel-item @if ($a == 0) active @endif">
                                                     @php
                                                         $a++;

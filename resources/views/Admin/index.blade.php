@@ -93,49 +93,32 @@
         </a>
     </div>
 
-    <div class="card-box pb-10">
-        <div class="h5 pd-20 mb-0">Recent Patient</div>
-        <table class="data-table table nowrap">
-            <thead>
-                <tr>
-                    <th class="table-plus">Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Last seen</th>
-                    <th>Online</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($user as $item)
-                    <tr>
-                        <td class="table-plus">
-                            <div class="name-avatar d-flex align-items-center">
-                                <div class="txt">
-                                    <div class="weight-600">{{ $item->name }}</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td>{{ $item->email }}</td>
-                        <td>
-                            @if ($item->isAdmin)
-                                Admin
-                            @else
-                                User
-                            @endif
-                        </td>
-                        <td>{{ Carbon\Carbon::parse($item->last_seen)->diffForHumans() }}</td>
-                        <td>
-                            @if (Cache::has('user-is-online-' . $item->id))
-                                <button type="button" class="btn btn-success btn-sm">Online</button>
-                            @else
-                                <button type="button" class="btn btn-danger btn-sm">Offline</button>
-                            @endif
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {
+            'packages': ['corechart']
+        });
+        google.charts.setOnLoadCallback(drawChart);
 
-                        </td>
-                    </tr>
-                @endforeach
+        function drawChart() {
 
-            </tbody>
-        </table>
+            var data = google.visualization.arrayToDataTable([
+                ['Device Name', 'Device count'],
+                <?php echo $chartData; ?>
+            ]);
+
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+            chart.draw(data);
+        }
+    </script>
+
+    <div class="col-md-6 mb-30">
+        <div class="pd-20 card-box height-100-p">
+            <div id="piechart" style=""></div>
+        </div>
     </div>
+
+
 @endsection

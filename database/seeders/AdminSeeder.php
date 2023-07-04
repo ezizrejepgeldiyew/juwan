@@ -19,7 +19,7 @@ class AdminSeeder extends Seeder
             'surname'   => 'Rejepgeldiyew',
             'email'     => 'ezizrejepgeldiyew@gmail.com',
             'password'  => Hash::make('eziz2003pas'),
-            'isAdmin'   => 1
+            'device'    => 'web'
         ]);
         $user->assignRole(['admin']);
     }

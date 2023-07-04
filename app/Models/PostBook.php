@@ -31,4 +31,5 @@ class PostBook extends Model
     {
         return $this->morphMany(Post::class, 'relation');
     }
+
 }

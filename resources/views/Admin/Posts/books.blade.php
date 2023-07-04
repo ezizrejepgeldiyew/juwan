@@ -31,7 +31,7 @@
                         @foreach ($postBooks as $postBook)
                             <tr>
                                 <td>{{ $postBook->id }}</td>
-                                <td><img src="{{ asset($postBook->book->photo) }}" width="100px"></td>
+                                <td><img src="{{ asset($postBook->photo) }}" width="100px"></td>
                                 <td>{{ $postBook->name }}</td>
                                 <td>{{ $postBook->book->category->name }}</td>
                                 <td>{{ $postBook->book->author->name }}</td>

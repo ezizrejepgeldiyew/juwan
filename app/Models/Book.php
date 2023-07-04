@@ -2,15 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Book extends Model
 {
     use HasFactory;
 
     protected $fillable = ['name', 'photo', 'category_id', 'author_id', 'ganre_id', 'audio', 'file', 'description'];
-    // protected $with = ['category', 'author'];
+    protected $with = ['category'];
+    protected $baseURL = "http://juwan.tp-projects.com/";
+    
+    // RELATION
 
     public function category()
     {
@@ -31,6 +35,15 @@ class Book extends Model
     {
         return $this->hasMany(PostBook::class);
     }
+
+    public function favorit()
+    {
+        return $this->morphMany(Favorit::class, 'favorit');
+    }
+
+    // MUTATOR
+
+ 
 
     public static function boot()
     {

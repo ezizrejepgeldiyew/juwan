@@ -40,6 +40,15 @@ class RouteServiceProvider extends ServiceProvider
                     ->prefix('book')
                     ->namespace($this->namespace)
                     ->group(base_path('routes/books.php'));
+
+                Route::middleware(['api'])
+                ->prefix('podcast')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/podcast.php'));
+
+                Route::prefix('auth')
+                    ->namespace($this->namespace)
+                    ->group(base_path('routes/auth.php'));
             });
 
             Route::middleware('api')

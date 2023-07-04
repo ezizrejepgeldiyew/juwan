@@ -17,9 +17,9 @@
                                 <span class="dt-checkbox-label"></span>
                             </div>
                         </th>
+                        <th>{{ __('Image') }}</th>
                         <th>{{ __('Title') }}</th>
-                        <th>{{ __('Author') }}</th>
-                        <th>{{ __('Category') }}</th>
+                        <th>{{ __('Genre') }}</th>
                         <th>{{ __('Audio') }}</th>
                         <th>{{ __('Description') }}</th>
                         <th>{{ __('Created_at') }}</th>
@@ -27,26 +27,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($podkasts as $podkast)
+                    @foreach ($podcasts as $podcast)
                         <tr>
-                            <td>{{ $podkast->id }}</td>
-                            <td>{{ $podkast->title }}</td>
-                            <td>{{ $podkast->author->name }}</td>
-                            <td>{{ $podkast->category->name }}</td>
+                            <td>{{ $podcast->id }}</td>
+                            <td><img src="{{ asset($podcast->photo) }}" width="100" alt=""></td>
+                            <td>{{ $podcast->title }}</td>
+                            <td>{{ $podcast->genre->name }}</td>
                             <td>
                                 <audio controls onplay="pauseOthers(this);">
-                                    <source src="{{ asset($podkast->audio) }}" type="audio/ogg">
+                                    <source src="{{ asset($podcast->audio) }}" onclick="pauseOthers(this)"
+                                        type="audio/mp3">
                                 </audio>
                             </td>
-                            <td>
-                                @if (strlen($podkast->text) > 50)
-                                    {{ substr($podkast->text, 0, 50) }}
-                                    <span class="read-more-show hide_content">...</span>
-                                @else
-                                    {{ $podkast->text }}
-                                @endif
-                            </td>
-                            <td>{{ $podkast->created_at }}</td>
+                            <td>{{ $podcast->description }}</td>
+                            <td>{{ $podcast->created_at }}</td>
                             <td>
                                 <div class="dropdown">
                                     <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
@@ -55,15 +49,15 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                                         <a class="dropdown-item" data-toggle="modal" data-target="#bd-example-modal-lg"
-                                            type="button" href="#"><i class="dw dw-eye"></i> View</a>
+                                            type="button" href="#"><i class="dw dw-eye"></i> {{ __('View') }}</a>
                                         <a class="dropdown-item" data-toggle="modal"
-                                            data-target="#update{{ $podkast->id }}" type="button" href="#"><i
-                                                class="dw dw-edit2"></i> Edit</a>
+                                            data-target="#update{{ $podcast->id }}" type="button" href="#"><i
+                                                class="dw dw-edit2"></i> {{ __('Edit') }}</a>
 
-                                        <form action="{{ route('podkasts.destroy', $podkast->id) }}" method="POST">
+                                        <form action="{{ route('podkasts.destroy', $podcast->id) }}" method="POST">
                                             @csrf @method('DELETE')
                                             <button class="dropdown-item" type="submit"><i
-                                                    class="dw dw-delete-3"></i>Delete</button>
+                                                    class="dw dw-delete-3"></i>{{ __('Delete') }}</button>
                                         </form>
                                     </div>
                                 </div>
@@ -91,32 +85,33 @@
                 <div class="modal-body">
                     <form action="{{ route('podkasts.store') }}" method="POST" enctype="multipart/form-data"> @csrf
                         <div class="form-group">
+                            <label>{{ __('Image') }}</label>
+                            <input type="file" class="form-control" name="photo" onchange="previewFile(this)">
+                            <img id="previewImg" alt="profile image" src="{{ asset('images/default-image.jpg') }}"
+                                style="max-width: 130px; margin-top: 20px;">
+                        </div>
+
+                        <div class="form-group">
                             <label>{{ __('Title') }}</label>
-                            <input class="form-control" id="title" type="text" name="title" >
+                            <input class="form-control" id="title" type="text" name="title">
                         </div>
+
                         <div class="form-group">
-                            <label>{{ __('Author') }}</label>
-                            <select class="selectpicker form-control" name="author_id">
-                                @foreach ($authors as $author)
-                                    <option value="{{ $author->id }}">{{ $author->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>{{ __('Category') }}</label>
-                            <select class="selectpicker form-control" name="category_id">
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            <label>{{ __('Genre') }}</label>
+                            <select class="selectpicker form-control" name="genre_id">
+                                @foreach ($genres as $genre)
+                                    <option value="{{ $genre->id }}">{{ $genre->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group">
                             <label>{{ __('Audio') }}</label>
-                            <input class="form-control" id="audio" type="file" name="audio" >
+                            <input class="form-control" id="audio" type="file" name="audio">
                         </div>
+
                         <div class="form-group">
                             <label>{{ __('Description') }}</label>
-                            <textarea class="form-control" id="text" name="text"></textarea>
+                            <input class="form-control" type="text" name="description">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">
@@ -134,55 +129,55 @@
         </div>
     </div>
     {{-- Update --}}
-    @foreach ($podkasts as $podkast)
-        <div class="modal fade bs-example-modal-lg" id="update{{ $podkast->id }}" tabindex="-1" role="dialog"
+    @foreach ($podcasts as $podcast)
+        <div class="modal fade bs-example-modal-lg" id="update{{ $podcast->id }}" tabindex="-1" role="dialog"
             aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="myLargeModalLabel">
-                            {{ __('Update') }}
+                            {{ __('Edit') }}
                         </h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                             ×
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ route('podkasts.update', $podkast->id) }}" enctype="multipart/form-data"
+                        <form action="{{ route('podkasts.update', $podcast->id) }}" enctype="multipart/form-data"
                             method="POST"> @csrf
                             @method('PUT')
+
                             <div class="form-group">
-                                <label>Title</label>
+                                <label>{{ __('Image') }}</label>
+                                <input type="file" class="form-control" name="photo">
+                            </div>
+
+                            <div class="form-group">
+                                <label>{{ __('Title') }}</label>
                                 <input class="form-control" id="title" type="text" name="title"
-                                    value="{{ $podkast->title }}" >
+                                    value="{{ $podcast->title }}">
                             </div>
                             <div class="form-group">
-                                <label>Author</label>
-                                <select class="selectpicker form-control" name="author_id">
-                                    <option value="{{ $podkast->author_id }}">{{ $podkast->author->name }}</option>
-                                    @foreach ($authors as $author)
-                                        <option value="{{ $author->id }}">{{ $author->name }}</option>
+                                <label>{{ __('Genre') }}</label>
+                                <select class="selectpicker form-control" name="genre_id">
+                                    <option value="{{ $podcast->genre_id }}">{{ $podcast->genre->name }}</option>
+                                    @foreach ($genres as $genre)
+                                        <option value="{{ $genre->id }}">{{ $genre->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
+
                             <div class="form-group">
-                                <label>Category</label>
-                                <select class="selectpicker form-control" name="category_id">
-                                    <option value="{{ $podkast->category_id }}">{{ $podkast->category->name }}</option>
-                                    @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @endforeach
-                                </select>
+                                <label>{{ __('Audio') }}</label>
+                                <input class="form-control" id="audio" type="file" name="audio">
                             </div>
+
                             <div class="form-group">
-                                <label>Audio</label>
-                                <input class="form-control" id="audio" type="file" name="audio"
-                                    value="{{ $podkast->audio }}">
+                                <label>{{ __('Description') }}</label>
+                                <input class="form-control" type="text" name="description"
+                                    value="{{ $podcast->description }}">
                             </div>
-                            <div class="form-group">
-                                <label>Text</label>
-                                <textarea class="form-control" id="text" name="text">{{ $podkast->text }}</textarea>
-                            </div>
+
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                     Ýatyr

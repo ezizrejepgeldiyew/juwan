@@ -12,7 +12,7 @@ Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
 
 // Home > Profile
 Breadcrumbs::for('profile', function (BreadcrumbTrail $trail) {
-    $trail->parent('/');
+    $trail->parent('home');
     $trail->push(__('Profile'), route('profile.index'));
 });
 
@@ -62,6 +62,12 @@ Breadcrumbs::for('otps', function (BreadcrumbTrail $trail) {
 Breadcrumbs::for('podkasts', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
     $trail->push(__('Podcasts'), route('podkasts.index'));
+});
+
+// Home > Favorit
+Breadcrumbs::for('favorites', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push(__('Favorites'), route('favorites.index'));
 });
 
 // Home > Post

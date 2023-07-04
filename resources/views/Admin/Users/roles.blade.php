@@ -1,7 +1,7 @@
 @extends('layouts.app2')
 @section('skilet')
     <div class="min-height-200px">
-        <x-breadcrumb title="Rollar" put='roles'></x-breadcrumb>
+        <x-breadcrumb title="{{ __('Roles') }}" put='roles'></x-breadcrumb>
 
         <div class="card-box mb-30">
             <div class="pd-20">
@@ -19,11 +19,11 @@
                                     <span class="dt-checkbox-label"></span>
                                 </div>
                             </th>
-                            <th>Name</th>
-                            {{-- <th>Users</th> --}}
-                            <th>Permissions</th>
-                            <th>Start date</th>
-                            <th class="datatable-nosort">Action</th>
+                            <th>{{ __('Name') }}</th>
+                            <th>{{ __('Users') }}</th>
+                            <th>{{ __('Permissions') }}</th>
+                            <th>{{ __('Created_at') }}</th>
+                            <th class="datatable-nosort">{{ __('Action') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -31,10 +31,11 @@
                             <tr>
                                 <td>{{ $role->id }}</td>
                                 <td>{{ $role->name }}</td>
+                                <td><a href="{{ route('users.index') }}">{{ $role->users_count == 0 ? '-' : $role->users_count }}
+                                        {{ $role->users_count != 0 ? __('Users') : '' }} </a></td>
                                 <td>
                                     @foreach ($role->permissions as $role_permission)
                                         {{ $role_permission->name }}
-
                                     @endforeach
                                 </td>
                                 <td>{{ $role->created_at }}</td>

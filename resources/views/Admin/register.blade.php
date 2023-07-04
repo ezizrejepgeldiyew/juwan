@@ -4,7 +4,7 @@
 <head>
     <!-- Basic Page Info -->
     <meta charset="utf-8" />
-    <title>DeskApp - Bootstrap Admin Dashboard HTML Template</title>
+    <title>Juwan</title>
 
     <!-- Site favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="vendors/images/apple-touch-icon.png" />
@@ -32,10 +32,29 @@
             <div class="brand-logo">
                 <img src="{{ asset('images/Juwan logo.svg') }}" alt="" />
             </div>
-            <div class="login-menu">
-                <ul>
-                    <li><a href="{{ route('login') }}">Login</a></li>
-                </ul>
+            <div class="d-flex align-items-center">
+                {{-- Change Language --}}
+                <div class="dropdown" style="margin-top: 15px; margin-right: 15px">
+                    <button type="button" class="btn btn-light dropdown-toggle waves-effect" data-toggle="dropdown"
+                        aria-expanded="false"><span
+                            class="flag-icon flag-icon-{{ Config::get('languages')[App::getLocale()]['flag-icon'] }}"></span>
+                        {{ Config::get('languages')[App::getLocale()]['display'] }}
+                    </button>
+                    <div class="dropdown-menu">
+                        @foreach (Config::get('languages') as $lang => $language)
+                            @if ($lang != App::getLocale())
+                                <a class="dropdown-item" href="{{ route('lang.switch', $lang) }}"><span
+                                        class="flag-icon flag-icon-{{ $language['flag-icon'] }}"></span>
+                                    {{ $language['display'] }}</a>
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+                <div class="login-menu" style="margin-top: 15px">
+                    <ul>
+                        <li><a href="{{ route('login') }}">{{ __('Login') }}</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -53,40 +72,49 @@
                         <br>
                         <form action="{{ route('register') }}" method="POST"> @csrf
                             <div class="form-group custom">
-                                <label class="col-sm-6 col-form-label">Email Address*</label>
+                                <label class="col-sm-8 col-form-label">{{ __('Email Address') }}*</label>
                                 <div class="col-sm-12">
                                     <input type="email" name="email" class="form-control" />
                                 </div>
                             </div>
                             <div class="form-group custom">
-                                <label class="col-sm-6 col-form-label">Username*</label>
+                                <label class="col-sm-6 col-form-label">{{ __('Username') }}*</label>
                                 <div class="col-sm-12">
                                     <input type="text" name="name" class="form-control" />
                                 </div>
                             </div>
                             <div class="form-group custom">
-                                <label class="col-sm-6 col-form-label">Surname*</label>
+                                <label class="col-sm-6 col-form-label">{{ __('Surname') }}*</label>
                                 <div class="col-sm-12">
                                     <input type="text" name="surname" class="form-control" />
                                 </div>
                             </div>
                             <div class="form-group custom">
-                                <label class="col-sm-6 col-form-label">Password*</label>
+                                <label class="col-sm-6 col-form-label">{{ __('Password') }}*</label>
                                 <div class="col-sm-12">
-                                    <input type="password" name="password" class="form-control" />
+                                    <input type="password" name="password" id="password"
+                                        class="form-control"/>
+                                    <div class="input-group-append custom mr-3">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-eye-slash" id="togglePassword"></i></span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group custom">
-                                <label class="col-sm-6 col-form-label">Confirm Password*</label>
+                                <label class="col-sm-8 col-form-label">{{ __('Confirm Password') }}*</label>
                                 <div class="col-sm-12">
-                                    <input type="password" name="password_confirmation" class="form-control" />
+                                    <input type="password" name="password_confirmation" id="confPassword" class="form-control" />
+                                    <div class="input-group-append custom mr-3">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-eye-slash" id="toggleConfPassword"></i></span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="input-group mb-0">
                                         <button type="submit"
-                                            class="btn btn-primary btn-lg btn-block">Register</button>
+                                            class="btn btn-primary btn-lg btn-block">{{ __('Register') }}</button>
                                     </div>
                                 </div>
                             </div>
@@ -98,14 +126,25 @@
     </div>
 
     <script>
-        function myFunction() {
-            var x = document.getElementById("password");
-            if (x.type === "password") {
-                x.type = "text";
-            } else {
-                x.type = "password";
-            }
-        }
+        // Password show/hide
+        const togglePassword = document.querySelector('#togglePassword')
+        const password = document.querySelector('#password')
+
+        togglePassword.addEventListener("click", function() {
+            const type = password.getAttribute("type") === "password" ? "text" : "password"
+            password.setAttribute("type", type)
+            this.classList.toggle("bi-eye")
+        })
+
+        // Confir Password show/hide
+        const toggleConfPassword = document.querySelector('#toggleConfPassword')
+        const confPassword = document.querySelector('#confPassword')
+
+        toggleConfPassword.addEventListener('click', function() {
+            const type = confPassword.getAttribute('type') === 'password' ? 'text' : 'password'
+            confPassword.setAttribute('type', type)
+            this.classList.toggle('bi-eye')
+        })
     </script>
     <script src="{{ asset('vendors/scripts/core.js') }}"></script>
     <script src="{{ asset('vendors/scripts/script.min.js') }}"></script>

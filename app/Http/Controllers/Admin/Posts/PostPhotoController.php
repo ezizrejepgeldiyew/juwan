@@ -27,7 +27,7 @@ class PostPhotoController extends Controller
         if ($request->hasFile('photos')) {
             foreach ($request->file('photos') as $image) {
                 $date = date('Y-m-d');
-                $photoName = $image->getClientOriginalName();
+                $photoName = md5($image->getClientOriginalName() . time()) . '.' . $image->extension();
                 $photoPath = "images/Posts/photos/{$date}";
                 $image->move(public_path($photoPath), $photoName);
                 $photos[] = $photoPath . '/' . $photoName;
@@ -40,7 +40,7 @@ class PostPhotoController extends Controller
         $add->relationable_id = $postPhoto->id;
         $add->relationable_type = $this->modelName;
         $add->save();
-        
+
         return back()->with('success', 'Maglumat üstünlikli goşuldy');
     }
 
@@ -52,7 +52,7 @@ class PostPhotoController extends Controller
             File::delete($postPhoto->photos);
             foreach ($request->file('photos') as $image) {
                 $date = date('Y-m-d');
-                $photoName = $image->getClientOriginalName();
+                $photoName = md5($image->getClientOriginalName() . time()) . '.' . $image->extension();
                 $photoPath = "images/Posts/photos/{$date}";
                 $image->move(public_path($photoPath), $photoName);
                 $photos[] = $photoPath . '/' . $photoName;

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AuthorController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\FavoritController;
 use App\Http\Controllers\Admin\GenreController;
 use App\Http\Controllers\Admin\OtpController;
 use App\Http\Controllers\Admin\PodkastController;
@@ -30,11 +31,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
-Route::get('/', [IndexController::class, 'index'])->name('index');
+Route::get('/', [IndexController::class, 'index'])->name('index')->middleware('otp');
+Route::get('/otps', [OtpController::class, 'otps'])->name('otps');
+Route::get('/resend', [OtpController::class, 'resend'])->name('resend_otp');
+Route::post('/verify',[OtpController::class, 'verify'])->name('verify');
+Route::get('/otp-time',[OtpController::class, 'otpTime']);
 
 Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'App\Http\Controllers\LanguageController@switchLang']);
 
-Route::prefix('admin/')->middleware(['auth'])->group(function () {
+Route::prefix('admin/')->middleware(['auth','otp'])->group(function () {
 
     Route::middleware(['role:admin|moderator'])->group(function () {
         Route::resources([
@@ -68,11 +73,12 @@ Route::prefix('admin/')->middleware(['auth'])->group(function () {
             '/permissions' => PermissionController::class,
             '/users' => UserController::class,
             '/otps' => OtpController::class,
+            '/favorites' => FavoritController::class,
         ]);
         Route::delete('/roles/{role}/permissions/{permission}', [RoleController::class, 'revokePermission'])->name('roles.permissions.revoke');
         Route::post('/roles/{role}/permissions', [RoleController::class, 'givePermission'])->name('roles.permissions');
     });
-    
+
     Route::controller(ProfileController::class)->name('profile.')->prefix('profile/')->group(function () {
         Route::get('index', 'index')->name('index');
         Route::put('update-account-info/{id}', 'updateAccountInfo')->name('update_account_info');

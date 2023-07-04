@@ -1,7 +1,7 @@
 @extends('layouts.app2')
 @section('skilet')
     <div class="min-height-200px">
-        <x-breadcrumb title="Awtorlar" put="authors"></x-breadcrumb>
+        <x-breadcrumb title="{{ __('Authors') }}" put="authors"></x-breadcrumb>
 
         <div class="card-box mb-30">
             <div class="pd-20">
@@ -19,9 +19,9 @@
                                     <span class="dt-checkbox-label"></span>
                                 </div>
                             </th>
-                            <th>Name</th>
-                            <th>Start date</th>
-                            <th class="datatable-nosort">Action</th>
+                            <th>{{ __('Name') }}</th>
+                            <th>{{ __('Created_at') }}</th>
+                            <th class="datatable-nosort">{{ __('Action') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,22 +38,21 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                                             <a class="dropdown-item" data-toggle="modal" data-target="#bd-example-modal-lg"
-                                                type="button" href="#"><i class="dw dw-eye"></i> View</a>
+                                                type="button" href="#"><i class="dw dw-eye"></i> {{ __('View') }}</a>
                                             <a class="dropdown-item" data-toggle="modal"
                                                 data-target="#update{{ $author->id }}" type="button" href="#"><i
-                                                    class="dw dw-edit2"></i> Edit</a>
+                                                    class="dw dw-edit2"></i> {{ __('Edit') }}</a>
 
                                             <form action="{{ route('authors.destroy', $author->id) }}" method="POST">
                                                 @csrf @method('DELETE')
                                                 <button class="dropdown-item" type="submit"><i
-                                                        class="dw dw-delete-3"></i>Delete</button>
+                                                        class="dw dw-delete-3"></i> {{ __('Delete') }}</button>
                                             </form>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
                         @endforeach
-
 
                     </tbody>
                 </table>
@@ -68,7 +67,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="myLargeModalLabel">
-                        Create
+                        {{ __('Add') }}
                     </h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         ×
@@ -78,15 +77,15 @@
 
                     <form action="{{ route('authors.store') }}" method="POST"> @csrf
                         <div class="form-group">
-                            <label>Name</label>
+                            <label>{{ __('Name') }}</label>
                             <input class="form-control" id="name" type="text" name="name" required>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                Ýatyr
+                                {{ __('Close') }}
                             </button>
                             <button type="submit" class="btn btn-success">
-                                Goş
+                                {{ __('Save') }}
                             </button>
                         </div>
                     </form>
@@ -104,7 +103,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="myLargeModalLabel">
-                            Update
+                            {{ __('Update') }}
                         </h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                             ×
@@ -114,15 +113,15 @@
                         <form action="{{ route('authors.update', $author->id) }}" method="POST"> @csrf
                             @method('PUT')
                             <div class="form-group">
-                                <label>Name</label>
+                                <label>{{ __('Name') }}</label>
                                 <input class="form-control" type="text" name="name" value="{{ $author->name }}">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                    Ýatyr
+                                    {{ __('Close') }}
                                 </button>
                                 <button type="submit" class="btn btn-success">
-                                    Üýtget
+                                    {{ __('Change') }}
                                 </button>
                             </div>
                         </form>

@@ -149,7 +149,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Videos</label>
-                                <input class="form-control" type="file" name="videos">
+                                <input class="form-control" type="file" name="video">
                             </div>
                             <div class="form-group">
                                 <label>Description</label>

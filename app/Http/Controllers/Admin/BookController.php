@@ -32,7 +32,7 @@ class BookController extends Controller
         return back()->with('success', 'Maglumat üstünlikli goşuldy');
     }
 
-    public function update(BookRequest $request, $id)
+    public function update(Request $request, $id)
     {
         CRUD::update($this->modelName, $request, $id, $this->photoFolderName, null, null, $this->fileFolderName);
         return redirect()->route('books.index')->with('success', 'Maglumat üstünlikli üýtgedildi');

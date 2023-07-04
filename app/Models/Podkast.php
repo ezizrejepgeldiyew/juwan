@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,15 +10,23 @@ class Podkast extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'author_id', 'category_id', 'audio', 'text'];
+    protected $fillable = ['title', 'genre_id', 'photo', 'audio', 'description'];
+    // protected $with = ['genre'];
 
-    public function category()
+    // RELATION
+
+    public function genre()
     {
-        return $this->belongsTo(Category::class, 'category_id', 'id');
+        return $this->belongsTo(Genre::class, 'genre_id', 'id');
     }
 
-    public function author()
+    // MUTATOR
+
+    protected function description(): Attribute
     {
-        return $this->belongsTo(Author::class, 'author_id', 'id');
+        return Attribute::make(
+            get: fn ($description) => is_null($description) ? '-' : $description,
+        );
     }
+
 }
