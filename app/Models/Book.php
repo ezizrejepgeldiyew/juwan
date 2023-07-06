@@ -13,7 +13,7 @@ class Book extends Model
     protected $fillable = ['name', 'photo', 'category_id', 'author_id', 'ganre_id', 'audio', 'file', 'description'];
     protected $with = ['category'];
     protected $baseURL = "http://juwan.tp-projects.com/";
-    
+
     // RELATION
 
     public function category()
@@ -43,7 +43,7 @@ class Book extends Model
 
     // MUTATOR
 
- 
+
 
     public static function boot()
     {

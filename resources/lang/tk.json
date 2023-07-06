@@ -1,4 +1,8 @@
 {
+<<<<<<< HEAD
+    "Change": "Üýtget",
+    "Post": "Post",
+=======
     "Old": "Köne",
     "Confirmation": "Tassyklaýyş",
     "Change password": "Paroly üýtgetmek",
@@ -7,6 +11,7 @@
     "Update Account Info": "Hasap maglumatyny täzeläň",
     "Change": "Üýtget",
     "Post": "Pocta",
+>>>>>>> 67235890e50a68e654dd1b0542e2f12b7fc23700
     "Photos": "Suratlar",
     "Videos": "Wideolar",
     "Quantity": "Mukdary",

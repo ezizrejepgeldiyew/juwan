@@ -7,9 +7,9 @@
     <title>Juwan</title>
 
     <!-- Site favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href={{ asset('images/Frame 74.svg') }} />
-    <link rel="icon" type="image/png" sizes="32x32" href={{ asset('images/Frame 74.svg') }} />
-    <link rel="icon" type="image/png" sizes="16x16" href={{ asset('images/Frame 74@2x.png') }} />
+    <link rel="apple-touch-icon" sizes="180x180" href={{ asset('images/Juwan-logos.svg') }} />
+    <link rel="icon" type="image/png" sizes="32x32" href={{ asset('images/Juwan-logos.svg') }} />
+    <link rel="icon" type="image/png" sizes="16x16" href={{ asset('images/Juwan-logos.png') }} />
 
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -67,11 +67,18 @@
     <!-- End Google Tag Manager -->
 </head>
 
+<<<<<<< HEAD
+<body class="sidebar-light active">
+    <div class="header">
+        <div class="header-left">
+            <div class="menu-icon bi bi-list"></div>
+=======
 <body class="sidebar-light">
 
     <div class="header">
         <div class="header-left">
             {{-- <div class="menu-icon bi bi-list"></div> --}}
+>>>>>>> 67235890e50a68e654dd1b0542e2f12b7fc23700
         </div>
 
         <div class="header-right">
@@ -131,16 +138,22 @@
 
     <div class="left-side-bar">
         <div class="brand-logo">
+<<<<<<< HEAD
+
+            <a href="index.html">
+                <img src="{{ asset('images/Juwan logo.svg') }}" alt="" class="dark-logo" />
+=======
             <a href="{{ route('index') }}">
                 <img src="{{ asset('images/Juwan logo.svg') }}" alt="" class="dark-logo" />
                 <img src="{{ asset('images/Frame 74.svg') }}" alt="" class="dark-logo-mob" />
+>>>>>>> 67235890e50a68e654dd1b0542e2f12b7fc23700
             </a>
             <div class="close-sidebar" data-toggle="left-sidebar-close">
                 <i class="ion-close-round"></i>
             </div>
         </div>
         <div class="menu-block customscroll">
-            <div class="sidebar-menu">
+            <div class="sidebar-menu ">
                 <ul id="accordion-menu">
                     <li>
                         <a href="{{ route('index') }}"
@@ -258,6 +271,14 @@
                         </div>
                     </li>
 
+                    <li>
+                        <a href="{{ route('favorites.index') }}"
+                            class="dropdown-toggle no-arrow @if (Request::routeIs('favorites.index')) active @endif">
+                            <span
+                                class="micon fa @if (Request::routeIs('favorites.index')) fa-heart @else fa-heart-o @endif"></span><span
+                                class="mtext">{{ __('Favorites') }}</span></a>
+                    </li>
+
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
                             <span class="micon fa fa-pencil-square-o"></span><span class="mtext">
@@ -304,7 +325,7 @@
             </div>
         </div>
     </div>
-    <div class="mobile-menu-overlay"></div>
+    <div class="mobile-menu-overlay"></div> 
 
     <div class="main-container">
         <div class="xs-pd-20-10 pd-ltr-20">
@@ -325,7 +346,6 @@
 
             <div class="footer-wrap pd-20 mb-20 card-box">
                 Juwan
-                <a href="https://turkmenportal.com" target="_blank"></a>
             </div>
         </div>
     </div>

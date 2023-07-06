@@ -23,7 +23,11 @@ class GenreController extends Controller
         CRUD::create($this->modelName, $request, $this->photoFolderName);
         return back()->with('success', 'Maglumat üstünlikli goşuldy');
     }
+<<<<<<< HEAD
+    public function update(Request $request, Genre $genre)
+=======
     public function update(Request $request, $id)
+>>>>>>> 67235890e50a68e654dd1b0542e2f12b7fc23700
     {
         CRUD::update($this->modelName, $request, $id, $this->photoFolderName);
         return redirect()->route('genres.index')->with('success', 'Maglumat üstünlikli üýtgedildi');

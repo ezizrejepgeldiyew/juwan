@@ -52,7 +52,7 @@ class User extends Authenticatable
 
     // MUTATOR
 
-    protected function email() : Attribute 
+    protected function email() : Attribute
     {
         return Attribute::make(
             get: fn ($email) => is_null($email) ? '-' : $email,
