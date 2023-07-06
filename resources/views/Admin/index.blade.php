@@ -159,11 +159,25 @@
                                 <button type="button" class="btn btn-danger btn-sm">Offline</button>
                             @endif
 
-                        </td>
-                    </tr>
-                @endforeach
+        function drawChart() {
 
-            </tbody>
-        </table>
+            var data = google.visualization.arrayToDataTable([
+                ['Device Name', 'Device count'],
+                <?php echo $chartData; ?>
+            ]);
+
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+            chart.draw(data);
+        }
+    </script>
+
+    <div class="col-md-6 mb-30">
+        <div class="pd-20 card-box height-100-p">
+            <div id="piechart" style=""></div>
+        </div>
     </div>
+
+
 @endsection

@@ -32,8 +32,4 @@ class PostBook extends Model
         return $this->morphMany(Post::class, 'relation');
     }
 
-    protected function getPhotoAttribute($photo)
-    {
-        return 'http://192.168.1.9:1234/'.$photo;
-    }
 }

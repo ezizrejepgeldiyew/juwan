@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('login');
             $table->string('otp');
             $table->string('type');
-            $table->boolean('status');
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }

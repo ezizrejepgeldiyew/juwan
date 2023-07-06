@@ -12,8 +12,8 @@ class Book extends Model
 
     protected $fillable = ['name', 'photo', 'category_id', 'author_id', 'ganre_id', 'audio', 'file', 'description'];
     protected $with = ['category'];
-    protected $baseUrl = "http://192.168.1.9:1234/";
-    
+    protected $baseURL = "http://juwan.tp-projects.com/";
+
     // RELATION
 
     public function category()
@@ -43,26 +43,7 @@ class Book extends Model
 
     // MUTATOR
 
-    protected function audio(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($audio) => $this->baseUrl . $audio,
-        );
-    }
 
-    protected function photo(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($photo) => $this->baseUrl . $photo,
-        );
-    }
-
-    protected function file(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($file) => $this->baseUrl . $file,
-        );
-    }
 
     public static function boot()
     {

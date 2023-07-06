@@ -159,7 +159,11 @@
                             </div>
                             <div class="form-group">
                                 <label>{{ __('Genre') }}</label>
+<<<<<<< HEAD
                                 <select class="selectpicker form-control" name="author_id">
+=======
+                                <select class="selectpicker form-control" name="genre_id">
+>>>>>>> 67235890e50a68e654dd1b0542e2f12b7fc23700
                                     <option value="{{ $podcast->genre_id }}">{{ $podcast->genre->name }}</option>
                                     @foreach ($genres as $genre)
                                         <option value="{{ $genre->id }}">{{ $genre->name }}</option>

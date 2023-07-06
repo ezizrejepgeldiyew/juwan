@@ -12,7 +12,7 @@ class PostVideo extends Model
 
     protected $fillable = ['category_id', 'video', 'description'];
     protected $with = ['category'];
-    protected $baseUrl = 'http://192.168.1.9:1234/';
+    protected $baseURL = "http://juwan.tp-projects.com/";
 
     // RELATION
 
@@ -29,6 +29,15 @@ class PostVideo extends Model
     public function favorit()
     {
         return $this->morphMany(Favorit::class, 'favorit');
+    }
+
+    // MUTATOR
+
+    protected function video(): Attribute
+    {
+        return Attribute::make(
+            get: fn($video) => $this->baseUrl.$video,
+        );
     }
 
     // MUTATOR

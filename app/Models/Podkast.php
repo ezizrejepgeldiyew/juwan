@@ -11,7 +11,7 @@ class Podkast extends Model
     use HasFactory;
 
     protected $fillable = ['title', 'genre_id', 'photo', 'audio', 'description'];
-    protected $with = ['genre'];
+    // protected $with = ['genre'];
 
     // RELATION
 

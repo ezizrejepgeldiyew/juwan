@@ -30,10 +30,29 @@
             <div class="brand-logo">
                 <img src="{{ asset('images/Juwan logo.svg') }}" alt="" />
             </div>
-            <div class="login-menu">
-                <ul>
-                    <li><a href="{{ route('register') }}">Register</a></li>
-                </ul>
+            <div class="d-flex align-items-center">
+                {{-- Change Language --}}
+                <div class="dropdown" style="margin-top: 15px; margin-right: 15px">
+                    <button type="button" class="btn btn-light dropdown-toggle waves-effect" data-toggle="dropdown"
+                        aria-expanded="false"><span
+                            class="flag-icon flag-icon-{{ Config::get('languages')[App::getLocale()]['flag-icon'] }}"></span>
+                        {{ Config::get('languages')[App::getLocale()]['display'] }}
+                    </button>
+                    <div class="dropdown-menu">
+                        @foreach (Config::get('languages') as $lang => $language)
+                            @if ($lang != App::getLocale())
+                                <a class="dropdown-item" href="{{ route('lang.switch', $lang) }}"><span
+                                        class="flag-icon flag-icon-{{ $language['flag-icon'] }}"></span>
+                                    {{ $language['display'] }}</a>
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+                <div class="login-menu" style="margin-top: 15px">
+                    <ul>
+                        <li><a href="{{ route('register') }}">{{ __('Register') }}</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -51,7 +70,7 @@
                         <form action="{{ route('login') }}" method="post"> @csrf
                             <div class="input-group custom">
                                 <input type="email" name="email" class="form-control form-control-lg"
-                                    placeholder="Email" />
+                                    placeholder="{{ __('Email') }}" />
                                 <div class="input-group-append custom">
                                     <span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
                                 </div>
@@ -60,8 +79,8 @@
                                 <input type="password" name="password" id="password"
                                     class="form-control form-control-lg" placeholder="**********" />
                                 <div class="input-group-append custom">
-                                    <span class="input-group-text" onclick="myFunction()"><i
-                                            class="dw dw-padlock1"></i></span>
+                                    <span class="input-group-text"><i id="togglePassword"
+                                            class="bi bi-eye-slash"></i></span>
                                 </div>
                             </div>
 
@@ -71,7 +90,7 @@
                                         <button type="submit" class="btn btn-primary btn-lg btn-block">Sign In</button>
                                     </div>
                                     <div class="font-16 weight-600 pt-10 pb-10 text-center" data-color="#707373">
-                                        OR
+                                        {{ __('or') }}
                                     </div>
                                     <div class="input-group mb-0">
                                         <a class="btn btn-outline-primary btn-lg btn-block"
@@ -87,14 +106,15 @@
     </div>
 
     <script>
-        function myFunction() {
-            var x = document.getElementById("password");
-            if (x.type === "password") {
-                x.type = "text";
-            } else {
-                x.type = "password";
-            }
-        }
+        const togglePassword = document.querySelector('#togglePassword')
+        const password = document.querySelector('#password')
+
+        togglePassword.addEventListener("click", function() {
+            const type = password.getAttribute("type") === "password" ? "text" : "password"
+            password.setAttribute("type", type)
+
+            this.classList.toggle("bi-eye")
+        })
     </script>
     <!-- js -->
     <script src="{{ asset('vendors/scripts/core.js') }}"></script>

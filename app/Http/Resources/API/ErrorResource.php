@@ -18,6 +18,6 @@ class ErrorResource extends JsonResource
             'success'    => false,
             'error_code'    => $this['error_code'],
             'message'       => $this['message']
-        ]; 
+        ];
     }
 }

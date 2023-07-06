@@ -24,9 +24,3 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::post('/favorit',[FavoritController::class, 'favorit']);
-
-Route::controller(PodkastController::class)->group(function () {
-    Route::get('/podkast', 'podkast');
-    Route::get('/podkast/category', 'category');
-    Route::get('/podkast/genre', 'genre');
-});

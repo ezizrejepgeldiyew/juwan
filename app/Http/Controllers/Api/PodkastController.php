@@ -3,23 +3,16 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use App\Models\Genre;
 use App\Models\Podkast;
-use Illuminate\Http\Request;
+use App\Models\Favorit;
+use App\Http\Resources\API\PodcastResource;
 
 class PodkastController extends Controller
 {
-    public function podkast()
+    public function index()
     {
-        $data = Podkast::with('category')->get();
-        return response()->json(compact('data'), 200);
-    }
-
-    public function category()
-    {
-        $podkastCategoryId = Podkast::select('category_id')->groupBy('category_id')->get()->pluck('category_id');
-        $data = Category::find($podkastCategoryId);
+        $data = Podkast::select('id', 'photo', 'title', 'description')->get();
         return response()->json(compact('data'), 200);
     }
 
@@ -27,6 +20,20 @@ class PodkastController extends Controller
     {
         $podcastGenreId = Podkast::select('genre_id')->groupBy('genre_id')->get()->pluck('genre_id');
         $data = Genre::find($podcastGenreId);
-        return response()->json($data,200);
+        return response()->json(compact('data'),200);
+    }
+
+    public function genrePodcasts($id)
+    {
+        $data = Podkast::where('genre_id',$id)->get();
+        return response()->json(compact('data'),200);
+    }
+
+    public function podcastGetId()
+    {
+        $data = Podkast::find(request('id'));
+        $data['favorit'] = Favorit::where('model_name','App\Models\Podkast')->where('favorit_id',request('id'))->count();
+        $data = PodcastResource::make($data);
+        return response()->json(compact('data'),200);
     }
 }

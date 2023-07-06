@@ -31,11 +31,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
-Route::get('/', [IndexController::class, 'index'])->name('index');
+Route::get('/', [IndexController::class, 'index'])->name('index')->middleware('otp');
+Route::get('/otp-time',[OtpController::class, 'otpTime']);
+Route::get('/otps', [OtpController::class, 'otps'])->name('otps');
+Route::get('/resend', [OtpController::class, 'resend'])->name('resend_otp');
+Route::post('/verify',[OtpController::class, 'verify'])->name('verify');
 
 Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'App\Http\Controllers\LanguageController@switchLang']);
 
-Route::prefix('admin/')->middleware(['auth'])->group(function () {
+Route::prefix('admin/')->middleware(['auth','otp'])->group(function () {
 
     Route::middleware(['role:admin|moderator'])->group(function () {
         Route::resources([

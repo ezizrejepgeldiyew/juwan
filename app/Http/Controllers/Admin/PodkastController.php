@@ -28,7 +28,7 @@ class PodkastController extends Controller
         return back()->with('success', 'Maglumat üstünlikli goşuldy');
     }
 
-    public function update(PodkastRequest $request, $id)
+    public function update(Request $request, $id)
     {
         CRUD::update($this->modelName, $request, $id, $this->photoFolderName, $this->audioFolderName);
         return redirect()->route('podkasts.index')->with('success', 'Maglumat üstünlikli üýtgedildi');

@@ -67,10 +67,18 @@
     <!-- End Google Tag Manager -->
 </head>
 
+<<<<<<< HEAD
 <body class="sidebar-light active">
     <div class="header">
         <div class="header-left">
             <div class="menu-icon bi bi-list"></div>
+=======
+<body class="sidebar-light">
+
+    <div class="header">
+        <div class="header-left">
+            {{-- <div class="menu-icon bi bi-list"></div> --}}
+>>>>>>> 67235890e50a68e654dd1b0542e2f12b7fc23700
         </div>
 
         <div class="header-right">
@@ -130,9 +138,15 @@
 
     <div class="left-side-bar">
         <div class="brand-logo">
+<<<<<<< HEAD
 
             <a href="index.html">
                 <img src="{{ asset('images/Juwan logo.svg') }}" alt="" class="dark-logo" />
+=======
+            <a href="{{ route('index') }}">
+                <img src="{{ asset('images/Juwan logo.svg') }}" alt="" class="dark-logo" />
+                <img src="{{ asset('images/Frame 74.svg') }}" alt="" class="dark-logo-mob" />
+>>>>>>> 67235890e50a68e654dd1b0542e2f12b7fc23700
             </a>
             <div class="close-sidebar" data-toggle="left-sidebar-close">
                 <i class="ion-close-round"></i>
@@ -147,13 +161,30 @@
                             <span class="micon fa fa-dashboard"></span><span
                                 class="mtext">{{ __('Dashboard') }}</span>
                         </a>
+                        <span class="dash">
+                            <ul>
+                                <li><a href="{{ route('index') }}" class="sub-toggle">{{ __('Dashboard') }}</a></li>
+                            </ul>
+                        </span>
                     </li>
 
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
                             <span class="micon fa fa-users"></span><span class="mtext"> {{ __('Users') }}</span>
                         </a>
-                        <ul class="submenu">
+                        <div class="dash">
+                            <ul>
+                                <li><a href="{{ route('users.index') }}" class="sub-toggle">{{ __('Users') }}</a>
+                                </li>
+                                <li><a href="{{ route('roles.index') }}" class="sub-toggle">{{ __('Roles') }}</a>
+                                </li>
+                                <li><a href="{{ route('permissions.index') }}"
+                                        class="sub-toggle">{{ __('Permission') }}</a></li>
+                                <li><a href="{{ route('otps.index') }}" class="sub-toggle">{{ __('Otps') }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <ul class="sub-menu">
                             <li><a class="@if (Request::routeIs('users.index')) active @endif"
                                     href="{{ route('users.index') }}"> {{ __('Users') }}</a></li>
                             <li><a class="@if (Request::routeIs('roles.index')) active @endif"
@@ -170,6 +201,40 @@
                             class="dropdown-toggle no-arrow @if (Request::routeIs('categories.index')) active @endif">
                             <span class="micon bi bi-menu-button-wide"></span><span
                                 class="mtext">{{ __('Categories') }}</span></a>
+                        <div class="dash">
+                            <ul>
+                                <li><a href="{{ route('categories.index') }}"
+                                        class="sub-toggle">{{ __('Categories') }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('authors.index') }}"
+                            class="dropdown-toggle no-arrow @if (Request::routeIs('authors.index')) active @endif">
+                            <span class="micon fa fa-user-o"></span><span class="mtext"> {{ __('Authors') }}</span>
+                        </a>
+                        <div class="dash">
+                            <ul>
+                                <li><a href="{{ route('authors.index') }}"
+                                        class="sub-toggle">{{ __('Authors') }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('genres.index') }}"
+                            class="dropdown-toggle no-arrow @if (Request::routeIs('genres.index')) active @endif">
+                            <span class="micon bi bi-pen"></span><span class="mtext"> {{ __('Genres') }}</span>
+                        </a>
+                        <div class="dash">
+                            <ul>
+                                <li><a href="{{ route('genres.index') }}" class="sub-toggle">{{ __('Genres') }}</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
 
                     <li>
@@ -183,6 +248,27 @@
                         <a href="{{ route('books.index') }}"
                             class="dropdown-toggle no-arrow @if (Request::routeIs('books.index')) active @endif">
                             <span class="micon fa fa-book"></span><span class="mtext">{{ __('Books') }}</span></a>
+                        <div class="dash">
+                            <ul>
+                                <li><a href="{{ route('books.index') }}" class="sub-toggle">{{ __('Books') }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('favorites.index') }}"
+                            class="dropdown-toggle no-arrow @if (Request::routeIs('favorites.index')) active @endif">
+                            <span
+                                class="micon fa @if (Request::routeIs('favorites.index')) fa-heart @else fa-heart-o @endif"></span><span
+                                class="mtext">{{ __('Favorites') }}</span></a>
+                        <div class="dash">
+                            <ul>
+                                <li><a href="{{ route('favorites.index') }}"
+                                        class="sub-toggle">{{ __('Favorites') }}</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
 
                     <li>
@@ -198,7 +284,13 @@
                             <span class="micon fa fa-pencil-square-o"></span><span class="mtext">
                                 {{ __('Posts') }}</span>
                         </a>
-                        <ul class="submenu">
+                        <div class="dash">
+                            <ul>
+                                <li><a href="{{ route('posts.index') }}" class="sub-toggle">{{ __('Posts') }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <ul class="sub-menu">
                             <li><a class="@if (Request::routeIs('posts.index')) active @endif"
                                     href="{{ route('posts.index') }}"> {{ __('Posts') }}</a></li>
                             <li><a class="@if (Request::routeIs('photos.index')) active @endif"
@@ -210,21 +302,6 @@
                         </ul>
                     </li>
 
-
-                    <li>
-                        <a href="{{ route('authors.index') }}"
-                            class="dropdown-toggle no-arrow @if (Request::routeIs('authors.index')) active @endif">
-                            <span class="micon fa fa-user-o"></span><span class="mtext"> {{ __('Authors') }}</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="{{ route('genres.index') }}"
-                            class="dropdown-toggle no-arrow @if (Request::routeIs('genres.index')) active @endif">
-                            <span class="micon bi bi-pen"></span><span class="mtext"> {{ __('Genres') }}</span>
-                        </a>
-                    </li>
-
                     {{-- LOGOUT --}}
                     <li>
                         <a href="{{ route('logout') }}"
@@ -232,6 +309,12 @@
                             class="dropdown-toggle no-arrow">
                             <span class="micon dw dw-logout"></span><span class="mtext"> {{ __('Logout') }}</span>
                         </a>
+                        <div class="dash">
+                            <ul>
+                                <li><a href="{{ route('logout') }}" class="sub-toggle">{{ __('Logout') }}</a>
+                                </li>
+                            </ul>
+                        </div>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST"
                             style="display: none;">
                             {{ csrf_field() }}

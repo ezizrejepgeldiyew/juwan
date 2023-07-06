@@ -2,7 +2,7 @@
 @section('skilet')
     <div class="min-height-200px">
         
-        <x-breadcrumb title="Profile" put="profile"></x-breadcrumb>
+        <x-breadcrumb title="{{ __('Profile')}}" put="profile"></x-breadcrumb>
 
         <div class="row">
             <div class="col-6">
@@ -13,27 +13,27 @@
                             <ul class="profile-edit-list">
                                 <li class="weight-500 col-12">
                                     <h4 class="text-blue h5 mb-20">
-                                        Update Account Info
+                                        {{ __('Update Account Info')}}
                                     </h4>
                                     <div class="form-group">
-                                        <label>Name</label>
+                                        <label>{{ __('Name')}}</label>
                                         <input class="form-control form-control-lg" type="text" name="name"
                                             value="{{ Auth::user()->name }}" required />
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Surname</label>
+                                        <label>{{ __('Surname')}}</label>
                                         <input class="form-control form-control-lg" type="text" name="surname"
                                             value="{{ Auth::user()->surname }}" required />
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Email</label>
+                                        <label>{{ __('Email')}}</label>
                                         <input class="form-control form-control-lg" type="email" name="email"
                                             value="{{ Auth::user()->email }}" />
                                     </div>
                                     <div class="form-group mb-0">
-                                        <button type="submit" class="btn btn-primary">Save</button>
+                                        <button type="submit" class="btn btn-primary">{{ __('Save')}}</button>
                                     </div>
                                 </li>
                             </ul>
@@ -49,10 +49,10 @@
                             <ul class="profile-edit-list">
                                 <li class="weight-500 col-12">
                                     <h4 class="text-blue h5 mb-20">
-                                        Change Password
+                                        {{ __('Change password')}}
                                     </h4>
                                     <div class="form-group">
-                                        <label>Old password</label>
+                                        <label>{{ __('Old')}} {{ __('Password')}}</label>
                                         <input class="form-control form-control-lg" type="password" name="old_password" />
                                         @error('old_password')
                                             <span class="text-danger">{{ $message }}</span>
@@ -60,7 +60,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label>New password</label>
+                                        <label>{{ __('New')}} {{ __('Password')}}</label>
                                         <input class="form-control form-control-lg" type="password" name="new_password" />
                                         @error('new_password')
                                             <span class="text-danger">{{ $message }}</span>
@@ -68,12 +68,12 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Confirme password</label>
+                                        <label>{{ __('Confirmation')}} {{ __('Password')}}</label>
                                         <input class="form-control form-control-lg" type="password"
                                             name="new_password_confirmation" />
                                     </div>
                                     <div class="form-group mb-0">
-                                        <button type="submit" class="btn btn-primary">Change Password</button>
+                                        <button type="submit" class="btn btn-primary">{{ __('Change')}}</button>
                                     </div>
                                 </li>
                             </ul>
