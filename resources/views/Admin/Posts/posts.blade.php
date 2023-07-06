@@ -30,8 +30,8 @@
                     <tbody>
                         @foreach ($posts as $post)
                             <tr>
-                                <td>{{ $post }}</td>
-                                <td>{{ $post->relationable_type }}</td>
+                                <td>{{ $post->id }}</td>
+                                <td data-value="{{ $post->relationable_type }}" id="model-name{{ $post->id }}">{{ $post->relationable_type }}</td>
                                 <td data-value="{{ $post->relationable_id }}" id="idd{{ $post->id }}">{{ $post->relationable_id }}</td>
                                 <td>{{ $post->created_at }}</td>
                             </tr>
@@ -46,19 +46,23 @@
         $('#select-delete').click(function() {
             var arr_id = [];
             var book_arr_id = [];
+            var model_name = [];
             $(':checkbox:checked').each(function(i) {
                 arr_id[i] = $(this).val();
                 book_arr_id[i] = document.querySelector('#idd' + $(this).val()).getAttribute('data-value')
+                model_name[i] = document.querySelector('#model-name' + $(this).val()).getAttribute('data-value')
             })
             data = {
                 _token: "{{ csrf_token() }}",
-                id: arr_id
-                book_id: book_arr_id
+                id: arr_id,
+                book_id: book_arr_id,
+                model_name: model_name
             }
 
-            // $.get('{{ route('selectDeletePosts') }}', data, function(response) {
-            //     location.reload()
-            // })
+            $.get('{{ route('selectDeletePosts') }}', data, function(response) {
+                console.log(response);
+                location.reload()
+            })
         })
     </script>
 @endsection

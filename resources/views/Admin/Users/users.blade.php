@@ -28,6 +28,7 @@
                     <tr>
                         <th class="table-plus">Name</th>
                         <th>Email</th>
+                        <th>phone</th>
                         <th>Role</th>
                         <th>Last seen</th>
                         <th>Online</th>
@@ -45,6 +46,7 @@
                                 </div>
                             </td>
                             <td>{{ $user->email }}</td>
+                            <td>{{ $user->phone }}</td>
                             <td>
                                 @foreach ($user->roles as $role)
                                     {{ $role->name }}

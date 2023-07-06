@@ -19,8 +19,10 @@ class PostController extends Controller
 
     public function selectDeletePosts()
     {
-        foreach(request('id') as $id) {
-            PostBook::destroy($id);
+        foreach(request('model_name') as $key => $model_name) {
+            if ($model_name == 'App\\Models\\PostBook') {
+                PostBook::destroy(request('book_id')[$key]);
+            }
         }
         Post::destroy(request('id'));
         return response()->json(request('id'), 200);

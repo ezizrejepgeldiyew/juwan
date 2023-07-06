@@ -243,7 +243,7 @@
                         </div>
                     </li>
 
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('favorites.index') }}"
                             class="dropdown-toggle no-arrow @if (Request::routeIs('favorites.index')) active @endif">
                             <span
@@ -256,7 +256,7 @@
                                 </li>
                             </ul>
                         </div>
-                    </li>
+                    </li> --}}
 
                     <li>
                         <a href="{{ route('favorites.index') }}"

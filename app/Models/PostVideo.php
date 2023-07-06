@@ -36,15 +36,6 @@ class PostVideo extends Model
     protected function video(): Attribute
     {
         return Attribute::make(
-            get: fn($video) => $this->baseUrl.$video,
-        );
-    }
-
-    // MUTATOR
-
-    protected function video(): Attribute
-    {
-        return Attribute::make(
             get: fn ($video) => $this->baseUrl . $video,
         );
     }

@@ -9,6 +9,8 @@ use App\Models\Author;
 use App\Models\Book;
 use App\Models\Category;
 use App\Models\Genre;
+use App\Models\Post;
+use App\Models\PostBook;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -40,12 +42,20 @@ class BookController extends Controller
 
     public function destroy($id)
     {
+        $postBookId = PostBook::where('book_id', $id)->pluck('id');
+        Post::where('relationable_type', 'App\\Models\\PostBook')->where('relationable_id', $postBookId)->delete();
+        PostBook::where('book_id', $id)->delete();
         CRUD::delete($this->modelName, $id);
         return back()->with('success', 'Maglumat üstünlikli pozuldy');
     }
 
     public function selectDeleteBooks()
     {
+        foreach (request('id') as $key => $id) {
+            $postBookId = PostBook::where('book_id', $id)->pluck('id');
+            Post::where('relationable_type', 'App\\Models\\PostBook')->where('relationable_id', $postBookId)->delete();
+            PostBook::where('book_id', $id)->delete();
+        }
         Book::destroy(request('id'));
         return response()->json("success", 200);
     }

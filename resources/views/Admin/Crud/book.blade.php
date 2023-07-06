@@ -1,7 +1,7 @@
 @extends('layouts.app2')
 @section('skilet')
     <div class="min-height-200px">
-        <x-breadcrumb title="{{__('Books')}}" put="books"></x-breadcrumb>
+        <x-breadcrumb title="{{ __('Books') }}" put="books"></x-breadcrumb>
         <div class="card-box mb-30">
             <div class="pd-20">
                 <button type="button" class="btn btn-success"data-toggle="modal" data-target="#create" type="button"><i
@@ -41,14 +41,16 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                                             <a class="dropdown-item" data-toggle="modal" data-target="#bd-example-modal-lg"
-                                                type="button" href="#"><i class="dw dw-eye"></i> {{ __('View') }}</a>
+                                                type="button" href="#"><i class="dw dw-eye"></i>
+                                                {{ __('View') }}</a>
                                             <a class="dropdown-item" data-toggle="modal"
                                                 data-target="#update{{ $book->id }}" type="button" href="#"><i
                                                     class="dw dw-edit2"></i> {{ __('Edit') }}</a>
-
-                                            <a class="dropdown-item" href="{{ route('books.destroy', $book->id) }}"><i
-                                                    class="dw dw-delete-3"></i>
-                                                {{ __('Delete') }}</a>
+                                            <form action="{{ route('books.destroy', $book->id) }}" method="POST">
+                                                @csrf @method('DELETE')
+                                                <button class="dropdown-item" type="submit"><i
+                                                        class="dw dw-delete-3"></i>{{ __('Delete') }}</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </td>
@@ -76,20 +78,20 @@
                     <form action="{{ route('books.store') }}" method="POST" enctype="multipart/form-data"> @csrf
 
                         <div class="form-group">
-                            <label>{{ __('Image')}}</label>
+                            <label>{{ __('Image') }}</label>
                             <input type="file" class="form-control" name="photo" onchange="previewFile(this)">
                             <img id="previewImg" alt="profile image" src="{{ asset('images/default-image.jpg') }}"
                                 style="max-width: 130px; margin-top: 20px;">
                         </div>
                         <div class="form-group">
-                            <label>{{ __('Name')}}</label>
+                            <label>{{ __('Name') }}</label>
                             <input class="form-control" id="name" type="text" name="name">
                             @if ($errors->has('name'))
                                 <span class="text-danger">{{ $errors->first('name') }}</span>
                             @endif
                         </div>
                         <div class="form-group">
-                            <label>{{ __('Category')}}</label>
+                            <label>{{ __('Category') }}</label>
                             <select class="selectpicker form-control" name="category_id" style="width: 100%">
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -97,7 +99,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>{{ __('Author')}}</label>
+                            <label>{{ __('Author') }}</label>
                             <select class="selectpicker form-control" name="author_id" style="width: 100%">
                                 @foreach ($authors as $author)
                                     <option value="{{ $author->id }}">{{ $author->name }}</option>
@@ -105,7 +107,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>{{ __('Genre')}}</label>
+                            <label>{{ __('Genre') }}</label>
                             <select class="selectpicker form-control" name="ganre_id" style="width: 100%">
                                 @foreach ($genres as $genre)
                                     <option value="{{ $genre->id }}">{{ $genre->name }}</option>
@@ -113,23 +115,23 @@
                             </select>
                         </div>
                         <div class="from-group mb-3">
-                            <label>{{ __('Audio')}}</label>
+                            <label>{{ __('Audio') }}</label>
                             <input class="form-control" type="file" name="audio">
                         </div>
                         <div class="from-group mb-3">
-                            <label>{{ __('File')}}</label>
+                            <label>{{ __('File') }}</label>
                             <input class="form-control" type="file" name="file">
                         </div>
                         <div class="from-group">
-                            <label>{{ __('Description')}}</label>
+                            <label>{{ __('Description') }}</label>
                             <textarea name="description" class="form-control" cols="30" rows="10"></textarea>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                {{ __('Close')}}
+                                {{ __('Close') }}
                             </button>
                             <button type="submit" class="btn btn-success">
-                                {{ __('Save')}}
+                                {{ __('Save') }}
                             </button>
                         </div>
                     </form>
@@ -148,7 +150,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="myLargeModalLabel">
-                            {{ __('Edit')}}
+                            {{ __('Edit') }}
                         </h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                             ×
@@ -159,11 +161,11 @@
                             method="POST"> @csrf
                             @method('PUT')
                             <div class="form-group">
-                                <label>{{ __('Image')}}</label>
+                                <label>{{ __('Image') }}</label>
                                 <input type="file" class="form-control" name="photo">
                             </div>
                             <div class="form-group">
-                                <label>{{ __('Name')}}</label>
+                                <label>{{ __('Name') }}</label>
                                 <input class="form-control" id="name" type="text" name="name"
                                     value="{{ $book->name }}">
                                 @if ($errors->has('name'))
@@ -171,7 +173,7 @@
                                 @endif
                             </div>
                             <div class="form-group">
-                                <label>{{ __('Category')}}</label>
+                                <label>{{ __('Category') }}</label>
                                 <select class="selectpicker form-control" name="category_id" style="width: 100%">
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -179,7 +181,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>{{ __('Author')}}</label>
+                                <label>{{ __('Author') }}</label>
                                 <select class="selectpicker form-control" name="author_id" style="width: 100%">
                                     @foreach ($authors as $author)
                                         <option value="{{ $author->id }}">{{ $author->name }}</option>
@@ -187,7 +189,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>{{ __('Genre')}}</label>
+                                <label>{{ __('Genre') }}</label>
                                 <select class="selectpicker form-control" name="ganre_id" style="width: 100%">
                                     @foreach ($genres as $genre)
                                         <option value="{{ $genre->id }}">{{ $genre->name }}</option>
@@ -195,24 +197,24 @@
                                 </select>
                             </div>
                             <div class="from-group mb-3">
-                                <label>{{ __('Audio')}}</label>
+                                <label>{{ __('Audio') }}</label>
                                 <input class="form-control" type="file" name="audio">
                             </div>
                             <div class="from-group mb-3">
-                                <label>{{ __('File')}}</label>
+                                <label>{{ __('File') }}</label>
                                 <input class="form-control" type="file" name="file">
                             </div>
                             <div class="from-group">
-                                <label>{{ __('Description')}}</label>
+                                <label>{{ __('Description') }}</label>
                                 <textarea name="description" class="form-control" cols="30" rows="10"></textarea>
                             </div>
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                    {{ __('Close')}}
+                                    {{ __('Close') }}
                                 </button>
                                 <button type="submit" class="btn btn-success">
-                                    {{ __('Update')}}
+                                    {{ __('Update') }}
                                 </button>
                             </div>
                         </form>

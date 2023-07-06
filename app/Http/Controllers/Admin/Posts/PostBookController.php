@@ -19,8 +19,8 @@ class PostBookController extends Controller
 
     public function destroy($id)
     {
-        PostBook::find($id)->delete();
         Post::where('relationable_id', $id)->where('relationable_type', $this->modelName)->delete();
+        PostBook::find($id)->delete();
         return back()->with('success', 'Maglumat üstünlikli pozuldy');
     }
 
@@ -54,10 +54,10 @@ class PostBookController extends Controller
 
     public function selectDelete()
     {
-        PostBook::destroy(request('id'));
         foreach (request('id') as $id) {
             Post::where('relationable_id', $id)->where('relationable_type', $this->modelName)->delete();
         }
+        PostBook::destroy(request('id'));
         return response()->json("success", 200);
     }
 }
