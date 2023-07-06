@@ -33,6 +33,6 @@ class RegisterController extends Controller
         $user = User::create($input)->assignRole('user');
         $user['user'] = $user;
         $user['token'] =  $user->createToken('juwan-token')->plainTextToken;
-        return UserResource::make($user);
+        return response(UserResource::make($user),200);
     }
 }

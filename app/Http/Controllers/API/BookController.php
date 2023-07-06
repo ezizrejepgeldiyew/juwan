@@ -31,12 +31,12 @@ class BookController extends Controller
     public function search()
     {
         $search = request('search');
-        $books = Book::with('author', 'genre')->where('name', 'like', '%' . $search . '%')
+        $data = Book::with('author', 'genre')->where('name', 'like', '%' . $search . '%')
             ->orWhereHas('author', function ($query) use ($search) {
                 $query->where('name', 'like', '%' . $search . '%');
             })->orWhereHas('genre', function ($query) use ($search) {
                 $query->where('name', 'like', '%' . $search . '%');
             })->get();
-        return response()->json($books, 200);
+        return response()->json(compact('data'), 200);
     }
 }
