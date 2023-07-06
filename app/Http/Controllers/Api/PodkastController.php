@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Genre;
 use App\Models\Podkast;
 use App\Models\Favorit;
 use App\Http\Resources\API\PodcastResource;
+use Illuminate\Http\Request;
 
 class PodkastController extends Controller
 {
