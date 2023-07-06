@@ -41,14 +41,11 @@ class RouteServiceProvider extends ServiceProvider
                     ->namespace($this->namespace)
                     ->group(base_path('routes/books.php'));
 
-<<<<<<< HEAD
-=======
                 Route::middleware(['api'])
                 ->prefix('podcast')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/podcast.php'));
 
->>>>>>> 67235890e50a68e654dd1b0542e2f12b7fc23700
                 Route::prefix('auth')
                     ->namespace($this->namespace)
                     ->group(base_path('routes/auth.php'));
