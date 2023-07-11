@@ -34,7 +34,7 @@ class PodkastController extends Controller
         return redirect()->route('podkasts.index')->with('success', 'Maglumat üstünlikli üýtgedildi');
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         CRUD::delete($this->modelName, $id);
         return back()->with('success', 'Maglumat üstünlikli pozuldy');

@@ -20,4 +20,6 @@ class FavoritController extends Controller
         }
         return response()->json(true, 200);
     }
+
+    
 }
