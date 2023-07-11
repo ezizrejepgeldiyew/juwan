@@ -17,7 +17,6 @@ class OTP
      */
     public function handle(Request $request, Closure $next): Response
     {
-
         $otp = ModelsOtp::where('login',Auth::user()->email)->latest()->first();
         if (!$otp->status) {
             return redirect('/otps');

@@ -65,7 +65,7 @@
                         <div class="alert alert-danger alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert">
                                 <i class="fa fa-times">
-                                    
+
                                 </i>
                             </button>
                             {{ session('error') }}
@@ -73,7 +73,7 @@
                     @endif
                     <div class="login-box bg-white box-shadow border-radius-10">
                         <div class="login-title">
-                            <h2 class="text-center text-primary">Tassyklaýyş açar sözi</h2>
+                            <h2 class="text-center text-primary">{{ __('Confirmation code') }}</h2>
                         </div>
                         <h6 class="d-flex justify-content-center mb-20">
                             <div>
@@ -94,16 +94,16 @@
                             <div class="d-flex justify-content-center">
                                 <div class=" col-6">
                                     <div class="input-group mb-0">
-                                        <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
+                                        <button class="btn btn-primary btn-lg btn-block" type="submit">{{ __('Submit') }}</button>
                                     </div>
                                 </div>
                             </div>
                         </form>
                         <div class="d-flex justify-content-center">
                             <div class="text-muted mb-2 pt-2">
-                                Didn’t get the code ?
+                                {{ __('Dont get the code') }}?
                                 <a href="{{ route('resend_otp') }}"
-                                    class="text-primary fw-bold text-decoration-none">Resend</a>
+                                    class="text-primary fw-bold text-decoration-none">{{ __('Resend') }}</a>
                             </div>
                         </div>
                     </div>
