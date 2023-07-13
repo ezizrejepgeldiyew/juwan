@@ -71,6 +71,6 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'device' => 'web'
-        ])->assignRole('user');
+        ])->assignRole('admin');
     }
 }

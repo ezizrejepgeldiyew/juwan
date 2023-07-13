@@ -11,7 +11,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $data = Post::with('relation')->paginate(2);
+        $data = Post::with('relation')->paginate(5);
         return response()->json(compact('data'), 200);
     }
 

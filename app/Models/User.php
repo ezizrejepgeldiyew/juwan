@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class User extends Authenticatable
 {
@@ -50,9 +51,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // public function tokens()
+    // {
+    //     return $this->hasMany(PersonalAccessToken::class);
+    // }
+
     // MUTATOR
 
-    protected function email() : Attribute
+    protected function email(): Attribute
     {
         return Attribute::make(
             get: fn ($email) => is_null($email) ? '-' : $email,

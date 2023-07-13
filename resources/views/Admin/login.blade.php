@@ -67,7 +67,7 @@
                         <div class="login-title">
                             <h2 class="text-center text-primary">Login To Juwan</h2>
                         </div>
-                        <form action="{{ route('login') }}" method="post"> @csrf
+                        <form action="{{ route('login') }}" method="POST"> @csrf
                             <div class="input-group custom">
                                 <input type="email" name="email" class="form-control form-control-lg"
                                     placeholder="{{ __('Email') }}" />
@@ -87,14 +87,14 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="input-group mb-0">
-                                        <button type="submit" class="btn btn-primary btn-lg btn-block">Sign In</button>
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block">{{ __('Sign In') }}</button>
                                     </div>
                                     <div class="font-16 weight-600 pt-10 pb-10 text-center" data-color="#707373">
                                         {{ __('or') }}
                                     </div>
                                     <div class="input-group mb-0">
                                         <a class="btn btn-outline-primary btn-lg btn-block"
-                                            href="{{ route('register') }}">Register To Create Account</a>
+                                            href="{{ route('register') }}">{{ __('Register') }}</a>
                                     </div>
                                 </div>
                             </div>
