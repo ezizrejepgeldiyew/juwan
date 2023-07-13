@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\File;
 
 class PostVideoController extends Controller
 {
-    public $modelName = 'App\Models\PostVideo';
+    public $modelName = "App\Models\PostVideo";
     protected $videoFolderName = 'Posts/videos';
 
 

@@ -31,17 +31,17 @@ class RouteServiceProvider extends ServiceProvider
             Route::group([
                 'prefix' => 'api',
             ], function () {
-                Route::middleware(['api'])
+                Route::middleware(['api','auth:sanctum'])
                     ->prefix('post')
                     ->namespace($this->namespace)
                     ->group(base_path('routes/post.php'));
 
-                Route::middleware(['api'])
+                Route::middleware(['api','auth:sanctum'])
                     ->prefix('book')
                     ->namespace($this->namespace)
                     ->group(base_path('routes/books.php'));
 
-                Route::middleware(['api'])
+                Route::middleware(['api','auth:sanctum'])
                 ->prefix('podcast')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/podcast.php'));
@@ -51,7 +51,7 @@ class RouteServiceProvider extends ServiceProvider
                     ->group(base_path('routes/auth.php'));
             });
 
-            Route::middleware('api')
+            Route::middleware('api','auth:sanctum')
                 ->prefix('api')
                 ->group(base_path('routes/api.php'));
 

@@ -11,7 +11,7 @@ class Favorit extends Model
     use HasFactory;
 
     protected $fillable = ['favorit_id', 'model_name', 'user_id'];
-    protected $with = ['favorit'];
+    // protected $with = ['favorit'];
 
 
     public function favorit()

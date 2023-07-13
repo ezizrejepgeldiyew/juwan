@@ -4,14 +4,23 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Favorit;
 use App\Models\Post;
-use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
     public function index()
     {
+        $user = auth()->user();
         $data = Post::with('relation')->paginate(5);
+        $favorits = Favorit::where('user_id', $user->id)->get();
+        foreach ($favorits as $favorit) {
+            foreach ($data as $item) {
+                if ($item->relationable_type == $favorit->model_name && $item->relationable_id == $favorit->favorit_id) {
+                    $item['favorit'] = true;
+                } elseif ($item['favorit'] != true) $item['favorit'] = false;
+            }
+        }
         return response()->json(compact('data'), 200);
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Http\Resources\API\ErrorResource;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -41,8 +42,13 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->renderable(function (\Illuminate\Auth\AuthenticationException $e, $request) {
+            if ($request->is('api/*')) {
+                return ErrorResource::make([
+                    'error_code' => 401,
+                    'message' => 'Unauthorised'
+                ]);
+            }
         });
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\Auth;
 
+use App\Http\Controllers\API\FavoritController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\API\ErrorResource;
@@ -25,10 +26,23 @@ class LoginController extends Controller
                 'message' => 'Unauthorised'
             ]);
         }
-
         $authUser = User::where('phone', request('phone'))->first();
         $authUser['user'] = User::where('phone', request('phone'))->first();
         $authUser['token'] =  $authUser->createToken('juwan-token')->plainTextToken;
         return UserResource::make($authUser);
+    }
+
+    public function logout()
+    {
+        $header = request()->header('Authorization');
+        $user = FavoritController::howUser($header);
+        if ($user == false)  return ErrorResource::make([
+            'error_code' => 401,
+            'message' => 'Unauthorised'
+        ]);
+        $user->tokens()->delete();
+        $data['success'] = true;
+        $data['message'] = 'user logged out';
+        return compact('data');
     }
 }
