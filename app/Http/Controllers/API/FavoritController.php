@@ -3,10 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\API\ErrorResource;
 use App\Models\Favorit;
-use App\Models\PostVideo;
-use Laravel\Sanctum\PersonalAccessToken;
 
 class FavoritController extends Controller
 {
