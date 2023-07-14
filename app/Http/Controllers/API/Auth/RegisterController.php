@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\API\ErrorResource;
+use App\Models\Otp;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -17,34 +18,24 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {
-        if ($request->phone) {
-            $validator = Validator::make($request->all(), [
-                'phone' => 'unique:users,phone',
+        $otp = Otp::where('otp', $request->register)->first();
+        $user = User::where('last_otp_id', $otp->id)->first();
+        if ($user) {
+            $time = strtotime($otp->created_at) + 120  - strtotime(now());
+            if ($time < 0) return ErrorResource::make([
+                'error_code' => 404,
+                'message' => 'Wagt gutardy kody tazeden alyn!!!'
             ]);
-            if ($validator->fails()) {
-                return ErrorResource::make([
-                    'error_code' => 404,
-                    'message' => $validator->errors('phone')->first()
-                ]);
-            }
-        } elseif ($request->email) {
-            $validator = Validator::make($request->all(), [
-                'email' => 'unique:users,email',
+            $token = $user->createToken('juwan-token')->plainTextToken;
+            $data['token'] = $token;
+            $data['success'] = true;
+            $data['user'] = $user;
+            return response()->json(compact('data'), 200);
+        } else {
+            return ErrorResource::make([
+                'error_code' => 404,
+                'message' => "In sonky kody ugradyn!!!"
             ]);
-            if ($validator->fails()) {
-                return ErrorResource::make([
-                    'error_code' => 404,
-                    'message' => $validator->errors('email')->first()
-                ]);
-            }
         }
-        $input = $request->all();
-        $input['password'] = 'juwan';
-        $user = User::create($input)->assignRole('user');
-        $token =  $user->createToken('juwan-token')->plainTextToken;
-        $data['token'] = $token;
-        $data['success'] = true;
-        $data['user'] = $user;
-        return response()->json(compact('data'), 200);
     }
 }
