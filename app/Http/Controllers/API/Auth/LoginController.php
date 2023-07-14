@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\API\Auth;
 
-use App\Http\Controllers\API\FavoritController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\API\ErrorResource;
-use App\Http\Resources\API\UserResource;
+use App\Models\Otp;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -19,30 +17,24 @@ class LoginController extends Controller
      */
     public function login(Request $request)
     {
-
-        if (!Auth::attempt($request->only(['phone', 'password']))) {
+        $otp = Otp::where('otp', $request->login)->first();
+        $user = User::where('last_otp_id', $otp->id)->first();
+        if ($user) {
+            $time = strtotime($otp->created_at) + 120  - strtotime(now());
+            if ($time < 0) return ErrorResource::make([
+                'error_code' => 404,
+                'message' => 'Wagt gutardy kody tazeden alyn!!!'
+            ]);
+            $token = $user->createToken('juwan-token')->plainTextToken;
+            $data['token'] = $token;
+            $data['success'] = true;
+            $data['user'] = $user;
+            return response()->json(compact('data'), 200);
+        } else {
             return ErrorResource::make([
-                'error_code' => 401,
-                'message' => 'Unauthorised'
+                'error_code' => 404,
+                'message' => "In sonky kody ugradyn!!!"
             ]);
         }
-        $authUser = User::where('phone', request('phone'))->first();
-        $authUser['user'] = User::where('phone', request('phone'))->first();
-        $authUser['token'] =  $authUser->createToken('juwan-token')->plainTextToken;
-        return UserResource::make($authUser);
-    }
-
-    public function logout()
-    {
-        $header = request()->header('Authorization');
-        $user = FavoritController::howUser($header);
-        if ($user == false)  return ErrorResource::make([
-            'error_code' => 401,
-            'message' => 'Unauthorised'
-        ]);
-        $user->tokens()->delete();
-        $data['success'] = true;
-        $data['message'] = 'user logged out';
-        return compact('data');
     }
 }

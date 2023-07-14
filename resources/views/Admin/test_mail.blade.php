@@ -1,1 +1,1 @@
-<h1>OTP: {{ $otp }}</h1>
+<h1>Juwan app Kod: {{ $otp }}</h1>

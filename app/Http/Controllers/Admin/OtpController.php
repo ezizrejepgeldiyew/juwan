@@ -57,7 +57,6 @@ class OtpController extends Controller
 
     public function verify(Request $request)
     {
-
         return redirect()->route('index');
         $otpTime = $this->otpTime();
         if ($otpTime < 0) return back()->with('error','Wagt gutardy taze OTP ugradyn!!!');
