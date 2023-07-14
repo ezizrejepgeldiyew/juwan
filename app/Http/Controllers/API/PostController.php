@@ -14,11 +14,12 @@ class PostController extends Controller
         $user = auth()->user();
         $data = Post::with('relation')->paginate(5);
         $favorits = Favorit::where('user_id', $user->id)->get();
-        foreach ($favorits as $favorit) {
-            foreach ($data as $item) {
+        foreach ($data as $item) {
+            $item['favorit'] = false;
+            foreach ($favorits as $favorit) {
                 if ($item->relationable_type == $favorit->model_name && $item->relationable_id == $favorit->favorit_id) {
                     $item['favorit'] = true;
-                } elseif ($item['favorit'] != true) $item['favorit'] = false;
+                }
             }
         }
         return response()->json(compact('data'), 200);

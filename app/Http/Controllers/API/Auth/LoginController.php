@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\API\Auth;
 
-use App\Http\Controllers\API\FavoritController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\API\ErrorResource;
@@ -32,14 +31,9 @@ class LoginController extends Controller
         return UserResource::make($authUser);
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        $header = request()->header('Authorization');
-        $user = FavoritController::howUser($header);
-        if ($user == false)  return ErrorResource::make([
-            'error_code' => 401,
-            'message' => 'Unauthorised'
-        ]);
+        $user = User::find($request->user()->id);
         $user->tokens()->delete();
         $data['success'] = true;
         $data['message'] = 'user logged out';
