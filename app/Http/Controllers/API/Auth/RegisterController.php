@@ -6,8 +6,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\API\ErrorResource;
-use App\Http\Resources\API\UserResource;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -19,20 +17,34 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'phone' => 'unique:users,phone',
-        ]);
-        if ($validator->fails()) {
-            return ErrorResource::make([
-                'error_code' => '',
-                'message' => $validator->errors('phone')->first()
+        if ($request->phone) {
+            $validator = Validator::make($request->all(), [
+                'phone' => 'unique:users,phone',
             ]);
+            if ($validator->fails()) {
+                return ErrorResource::make([
+                    'error_code' => 404,
+                    'message' => $validator->errors('phone')->first()
+                ]);
+            }
+        } elseif ($request->email) {
+            $validator = Validator::make($request->all(), [
+                'email' => 'unique:users,email',
+            ]);
+            if ($validator->fails()) {
+                return ErrorResource::make([
+                    'error_code' => 404,
+                    'message' => $validator->errors('email')->first()
+                ]);
+            }
         }
         $input = $request->all();
-        $input['password'] = Hash::make($input['password']);
+        $input['password'] = 'juwan';
         $user = User::create($input)->assignRole('user');
-        $user['user'] = $user;
-        $user['token'] =  $user->createToken('juwan-token')->plainTextToken;
-        return response(UserResource::make($user),200);
+        $token =  $user->createToken('juwan-token')->plainTextToken;
+        $data['token'] = $token;
+        $data['success'] = true;
+        $data['user'] = $user;
+        return response()->json(compact('data'), 200);
     }
 }
