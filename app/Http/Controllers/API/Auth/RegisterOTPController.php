@@ -10,6 +10,7 @@ use App\Services\OTP\Mailer;
 use App\Services\OTP\SMS;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterOTPController extends Controller
 {
@@ -26,7 +27,12 @@ class RegisterOTPController extends Controller
                     'message' => $validator->errors('phone')->first()
                 ]);
             }
-            $user = User::create($request->all())->assignRole('user');
+
+            $data = $request->all();
+            $data['password'] = Hash::make($request->password);
+
+            $user = User::create($data)->assignRole('user');
+
             $sms_service = new SMS();
             $response = $sms_service->sendOtpSMS($user);
 
