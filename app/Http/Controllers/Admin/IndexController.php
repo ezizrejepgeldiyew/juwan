@@ -47,4 +47,6 @@ class IndexController extends Controller
         $user = User::whereNotNull('last_seen')->orderBy('last_seen', 'desc')->get();
         return view('Admin.index', compact('user', 'userCount', 'authorCount', 'bookCount', 'postCount', 'podcastCount', 'genreCount', 'chartData'));
     }
+
+   
 }

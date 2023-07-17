@@ -8,27 +8,15 @@
                 </div>
                 <div class="col-md-6 col-lg-5">
                     <div class="login-box bg-white box-shadow border-radius-10">
-                        <div class="register-title">
-                            <h2 class="text-center text-primary">Register To Juwan</h2>
+                        <div class="login-title">
+                            <h2 class="text-center text-primary">{{ __('Reset Password') }}</h2>
                         </div>
-                        <br>
-                        <form action="{{ route('register') }}" method="POST"> @csrf
+                        <form action="{{ route('reset.password.post') }}" method="POST"> @csrf
+                            <input type="hidden" name="token" value="{{ $token }}">
                             <div class="form-group custom">
                                 <label class="col-sm-8 col-form-label">{{ __('Email Address') }}*</label>
                                 <div class="col-sm-12">
-                                    <input type="email" name="email" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="form-group custom">
-                                <label class="col-sm-6 col-form-label">{{ __('Username') }}*</label>
-                                <div class="col-sm-12">
-                                    <input type="text" name="name" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="form-group custom">
-                                <label class="col-sm-6 col-form-label">{{ __('Surname') }}*</label>
-                                <div class="col-sm-12">
-                                    <input type="text" name="surname" class="form-control" />
+                                    <input type="email" name="email" class="form-control" value="{{ $email }}" readonly/>
                                 </div>
                             </div>
                             <div class="form-group custom">
@@ -55,15 +43,7 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="input-group mb-0">
-                                        <button type="submit"
-                                            class="btn btn-primary btn-lg btn-block">{{ __('Register') }}</button>
-                                    </div>
-                                    <div class="font-16 weight-600 pt-10 pb-10 text-center" data-color="#707373">
-                                        {{ __('or') }}
-                                    </div>
-                                    <div class="input-group mb-0">
-                                        <a class="btn btn-outline-primary btn-lg btn-block"
-                                            href="{{ route('login') }}">{{ __('Login') }}</a>
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block">{{ __('Reset Password') }}</button>
                                     </div>
                                 </div>
                             </div>

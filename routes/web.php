@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\FavoritController;
+use App\Http\Controllers\Admin\ForgotPasswordController;
 use App\Http\Controllers\Admin\GenreController;
 use App\Http\Controllers\Admin\OtpController;
 use App\Http\Controllers\Admin\PodkastController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\Users\PermissionController;
 use App\Http\Controllers\Admin\Users\RoleController;
 use App\Http\Controllers\Admin\Users\UserController;
+use App\Http\Controllers\ddddd;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -30,16 +32,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
+Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
+Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+
 Auth::routes();
-Route::get('/', [IndexController::class, 'index'])->name('index')->middleware('otp');
-Route::get('/otp-time',[OtpController::class, 'otpTime']);
-Route::get('/otps', [OtpController::class, 'otps'])->name('otps');
-Route::get('/resend', [OtpController::class, 'resend'])->name('resend_otp');
-Route::post('/verify',[OtpController::class, 'verify'])->name('verify');
+Route::get('/', [IndexController::class, 'index'])->name('index');
 
 Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'App\Http\Controllers\LanguageController@switchLang']);
 
-Route::prefix('admin/')->middleware(['auth','otp'])->group(function () {
+Route::prefix('admin/')->middleware(['auth'])->group(function () {
 
     Route::middleware(['role:admin|moderator'])->group(function () {
         Route::resources([
