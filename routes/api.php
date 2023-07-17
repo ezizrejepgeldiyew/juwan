@@ -24,4 +24,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::post('/favorit',[FavoritController::class, 'favorit']);
-Route::get('/favorit',[FavoritController::class, 'getFavorit']);
+Route::get('/favorits',[FavoritController::class, 'getFavorit']);
