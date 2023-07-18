@@ -1,10 +1,7 @@
 <?php
 
-use App\Http\Controllers\API\Auth\RegisterController;
-use App\Http\Controllers\API\PostController;
-use App\Http\Controllers\API\BookController;
 use App\Http\Controllers\API\FavoritController;
-use App\Http\Controllers\API\PodkastController;
+use App\Http\Controllers\API\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::post('/favorit',[FavoritController::class, 'favorit']);
 Route::get('/favorits',[FavoritController::class, 'getFavorit']);
+Route::post('/upload-avatar',[UserController::class, 'uploadAvatar']);

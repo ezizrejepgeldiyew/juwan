@@ -12,7 +12,6 @@ class FavoritController extends Controller
         $user = auth()->user();
         $path = request('type');
         $path = substr($path, 0, 4) . substr($path, 5, 7) . substr($path, 13, strlen($path));
-        // return $path;
         $favorit = Favorit::where('model_name', $path)->where('favorit_id', request('id'))->where('user_id', $user->id)->first();
         $data['success'] = true;
         if ($favorit) {
@@ -33,7 +32,7 @@ class FavoritController extends Controller
     public function getFavorit()
     {
         $user = auth()->user();
-        $data = Favorit::with('favorit')->where('user_id', $user->id)->get();
+        $data = Favorit::with('favorit')->where('user_id', $user->id)->paginate(5);
         return response()->json(compact('data'), 200);
     }
 }
