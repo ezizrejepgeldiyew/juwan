@@ -23,4 +23,4 @@ class PodcastResource extends JsonResource
             'favorit' => $this->favorit,
         ];
     }
-}
+} 

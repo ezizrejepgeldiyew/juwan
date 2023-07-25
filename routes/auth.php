@@ -13,6 +13,6 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/forgot-password', [ForgotPasswordController::class, 'forgotPassword']);
 Route::post('/login-otp', [LoginOTPController::class, 'loginOTP']);
-Route::post('/register-otp', [RegisterOTPController::class, 'registerOTP']);
+Route::post('/register-otp', [RegisterOTPController::class, 'registerOTP']); 
 Route::post('/forgot-password-otp', [ForgotPasswordOTPController::class, 'forgotPasswordOTP']);
 Route::post('/logout', [LogoutController::class, 'logout'])->middleware('auth:sanctum');

@@ -12,7 +12,6 @@ class LogoutController extends Controller
     public function logout(Request $request)
     {
         $user = User::find($request->user()->id);
-
         $user->tokens()->delete();
         $user->save();
         return SuccessResource::make([

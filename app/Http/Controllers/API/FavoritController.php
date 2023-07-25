@@ -11,7 +11,7 @@ class FavoritController extends Controller
     {
         $user = auth()->user();
         $path = request('type');
-        $path = substr($path, 0, 4) . substr($path, 5, 7) . substr($path, 13, strlen($path));
+        // $path = substr($path, 0, 4) . substr($path, 5, 7) . substr($path, 13, strlen($path));
         $favorit = Favorit::where('model_name', $path)->where('favorit_id', request('id'))->where('user_id', $user->id)->first();
         $data['success'] = true;
         if ($favorit) {
