@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\DownloadController;
 use App\Http\Controllers\API\FavoritController;
 use App\Http\Controllers\API\UserController;
 use Illuminate\Http\Request;
@@ -23,3 +24,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/favorit',[FavoritController::class, 'favorit']);
 Route::get('/favorits',[FavoritController::class, 'getFavorit']);
 Route::post('/upload-avatar',[UserController::class, 'uploadAvatar']);
+Route::get('/download/count',[DownloadController::class, 'index']);
+Route::get('/download/store',[DownloadController::class, 'store']);

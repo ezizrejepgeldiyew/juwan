@@ -24,13 +24,13 @@ class SMS
             'status' => false,
             'login' => $user->phone
         ]);
-
+        
         $client = new Client();
-
+        
         $client->get(
             $this->url
-                . '?to=+993' . $user->phone
-                . '&text=' . $this->text . $otp->otp
+            . '?to=+993' . $user->phone
+            . '&text=' . $this->text . $otp->otp
         );
         $user->last_otp_id = $otp->id;
         $user->save();
