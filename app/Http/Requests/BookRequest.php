@@ -27,7 +27,7 @@ class BookRequest extends FormRequest
         return [
             'name' => 'required',
             'photo' => 'required|mimes:png,jpg,jpeg,svg',
-            'audio' => 'required|mimes:mp3',
+            'audio' => 'mimes:mp3',
             'file' => 'required|mimes:pdf,epub,fb2'
         ];
     }

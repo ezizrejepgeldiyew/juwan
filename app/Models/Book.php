@@ -12,7 +12,6 @@ class Book extends Model
 
     protected $fillable = ['name', 'photo', 'category_id', 'author_id', 'ganre_id', 'audio', 'file', 'description'];
     protected $with = ['category'];
-    protected $baseURL = "http://juwan.tp-projects.com/";
 
     // RELATION
 
@@ -41,6 +40,16 @@ class Book extends Model
         return $this->morphMany(Favorit::class, 'favorit');
     }
 
+    public function readBook()
+    {
+        return $this->hasMany(ReadBook::class);
+    }
+
+    public function wishList()
+    {
+        return $this->hasMany(WishList::class);
+    }
+
     // MUTATOR
 
 
@@ -51,6 +60,8 @@ class Book extends Model
 
         static::deleted(function ($book) {
             $book->postBook()->delete();
+            $book->readBook()->delete();
+            $book->wishList()->delete();
         });
     }
 }
