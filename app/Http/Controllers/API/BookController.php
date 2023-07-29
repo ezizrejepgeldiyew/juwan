@@ -7,7 +7,7 @@ use App\Models\Book;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
-class BookController extends Controller
+class BookController extends Controller 
 {
     public function index()
     {

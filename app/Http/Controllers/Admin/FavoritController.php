@@ -9,22 +9,22 @@ class FavoritController extends Controller
 {
     public function index()
     {
-        $books = Favorit::where('model_name', 'App\Models\Book')
+        $books = Favorit::with('favorit')->where('model_name', 'App\Models\Book')
             ->select('favorit_id', 'model_name')
             ->groupBy('favorit_id', 'model_name')
             ->selectRaw('favorit_id, count(*) as quantity')
             ->get();
-        $podcasts = Favorit::where('model_name', 'App\Models\Podkast')
+        $podcasts = Favorit::with('favorit')->where('model_name', 'App\Models\Podkast')
             ->select('favorit_id', 'model_name')
             ->groupBy('favorit_id', 'model_name')
             ->selectRaw('favorit_id, count(*) as quantity')
             ->get();
-        $postPhotos = Favorit::where('model_name', 'App\Models\PostPhoto')
+        $postPhotos = Favorit::with('favorit')->where('model_name', 'App\Models\PostPhoto')
             ->select('favorit_id', 'model_name')
             ->groupBy('favorit_id', 'model_name')
             ->selectRaw('favorit_id, count(*) as quantity')
             ->get();
-        $postVideos = Favorit::where('model_name', 'App\Models\PostVideo')
+        $postVideos = Favorit::with('favorit')->where('model_name', 'App\Models\PostVideo')
             ->select('favorit_id', 'model_name')
             ->groupBy('favorit_id', 'model_name')
             ->selectRaw('favorit_id, count(*) as quantity')

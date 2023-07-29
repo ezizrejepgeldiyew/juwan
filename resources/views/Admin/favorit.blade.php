@@ -108,9 +108,9 @@
                                 <tbody>
                                     @foreach ($postVideos as $postVideo)
                                         <tr>
-                                            <td class="table-plus">{{ $postVideo->name }}</td>
-                                            <td>{{ $postVideo->category->name }}</td>
-                                            <td>{{ $postVideoFavorites[$postVideo->id] }}</td>
+                                            <td class="table-plus">{{ $postVideo->favorit->name }}</td>
+                                            <td>{{ $postVideo->favorit->category->name }}</td>
+                                            <td>{{ $postVideo->quantity }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
