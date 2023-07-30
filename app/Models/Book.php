@@ -10,7 +10,7 @@ class Book extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'photo', 'category_id', 'author_id', 'ganre_id', 'audio', 'file', 'description'];
+    protected $fillable = ['name', 'photo', 'category_id', 'author_id', 'ganre_id', 'audio', 'file', 'description', 'is_favorit'];
     protected $with = ['category'];
 
     // RELATION
@@ -52,7 +52,12 @@ class Book extends Model
 
     // MUTATOR
 
-
+    protected function is_favorit(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => Favorit::where('user_id', auth()->user()->id)->where('model_name', 'App\Models\PostBook')->where('favorit_id',$this->attributes['id'])->count() 
+        );
+    }
 
     public static function boot()
     {

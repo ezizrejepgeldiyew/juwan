@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->text('photo');
             $table->integer('category_id');
-            $table->string('author_id');
-            $table->string('ganre_id');
+            $table->integer('author_id');
+            $table->integer('ganre_id');
             $table->text('audio')->nullable();
             $table->text('file');
             $table->string('description')->nullable();

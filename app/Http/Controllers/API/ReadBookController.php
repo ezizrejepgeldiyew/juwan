@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\API\MyBookResource;
 use App\Http\Resources\API\SuccessResource;
 use App\Models\ReadBook;
 use Carbon\Carbon;
@@ -12,87 +13,52 @@ class ReadBookController extends Controller
 {
     // Today
 
-    public function getTodayAudioBook()
+    public function todayAudioBook()
     {
-        $data = ReadBook::with('book')
+        $wishListAudioBook = ReadBook::with('book')
             ->where('user_id', auth()->user()->id)
             ->whereDate('created_at', Carbon::today())
-            ->whereHas('book', function ($query) {
-                $query->where('audio', '!=', null);
+            ->whereHas('book', function ($book) {
+                $book->where('audio', '!=', null);
             })->get();
-        return response()->json(compact('data'), 200);
+        return MyBookResource::collection($wishListAudioBook);
     }
 
-    public function countTodayAudioBook()
-    {
-        $data = ReadBook::where('user_id', auth()->user()->id)
-            ->whereDate('created_at', Carbon::today())
-            ->whereHas('book', function ($query) {
-                $query->where('audio', '!=', null);
-            })->count();
-        return response()->json(compact('data'), 200);
-    }
 
-    public function getTodayBook()
+    public function todayBook()
     {
-        $data = ReadBook::with('book')
+        $wishListBook = ReadBook::with('book')
             ->where('user_id', auth()->user()->id)
             ->whereDate('created_at', Carbon::today())
-            ->whereHas('book', function ($query) {
-                $query->where('audio', null);
+            ->whereHas('book', function ($book) {
+                $book->where('audio', null);
             })->get();
-        return response()->json(compact('data'), 200);
+        return MyBookResource::collection($wishListBook);
     }
 
-    public function countTodayBook()
-    {
-        $data = ReadBook::where('user_id', auth()->user()->id)
-            ->whereDate('created_at', Carbon::today())
-            ->whereHas('book', function ($query) {
-                $query->where('audio', null);
-            })->count();
-        return response()->json(compact('data'), 200);
-    }
 
     // All
 
-    public function getAudioBook()
+    public function audioBook()
     {
-        $data = ReadBook::with('book')
+        $wishListAudioBook = ReadBook::with('book')
+        ->where('user_id', auth()->user()->id)
+        ->whereHas('book', function ($book) {
+            $book->where('audio', '!=', null);
+        })->get();
+    return MyBookResource::collection($wishListAudioBook);
+    }
+
+    public function book()
+    {
+        $wishListBook = ReadBook::with('book')
             ->where('user_id', auth()->user()->id)
-            ->whereHas('book', function ($query) {
-                $query->where('audio', '!=', null);
+            ->whereHas('book', function ($book) {
+                $book->where('audio', null);
             })->get();
-        return response()->json(compact('data'), 200);
+        return MyBookResource::collection($wishListBook);
     }
 
-    public function countAudioBook()
-    {
-        $data = ReadBook::where('user_id', auth()->user()->id)
-            ->whereHas('book', function ($query) {
-                $query->where('audio', '!=', null);
-            })->count();
-        return response()->json(compact('data'), 200);
-    }
-
-    public function getBook()
-    {
-        $data = ReadBook::with('book')
-            ->where('user_id', auth()->user()->id)
-            ->whereHas('book', function ($query) {
-                $query->where('audio', null);
-            })->get();
-        return response()->json(compact('data'), 200);
-    }
-
-    public function countBook()
-    {
-        $data = ReadBook::where('user_id', auth()->user()->id)
-            ->whereHas('book', function ($query) {
-                $query->where('audio', null);
-            })->count();
-        return response()->json(compact('data'), 200);
-    }
 
     public function store(Request $request)
     {

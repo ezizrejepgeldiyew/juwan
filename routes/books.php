@@ -7,28 +7,23 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(BookController::class)->group(function () {
     Route::get('/index', 'index');
-    Route::get('/{id}', 'selectBook');
+    Route::get('/select/{id}', 'selectBook');
     Route::post('/search', 'search');
+    Route::get('/count','count');
 });
 
-Route::controller(ReadBookController::class)->prefix('/read-book')->group(function () {
+Route::controller(ReadBookController::class)->prefix('/readBook')->group(function () {
     Route::post('/store', 'store');
     // Today
-    Route::get('/today/count/book', 'countTodayBook');
-    Route::get('/today/count/audioBook', 'countTodayAudioBook');
-    Route::get('/today/book', 'getTodayBook');
-    Route::get('/today/audioBook', 'getTodayAudioBook');
+    Route::get('/today/book', 'todayBook');
+    Route::get('/today/audioBook', 'todayAudioBook');
     // All
-    Route::get('/count/book', 'countBook');
-    Route::get('/count/audioBook', 'countAudioBook');
-    Route::get('/audioBook', 'getAudioBook');
-    Route::get('/book', 'getBook');
+    Route::get('/audioBook', 'audioBook');
+    Route::get('/book', 'book');
 });
 
-Route::controller(WishListController::class)->prefix('/wish-list')->group(function () {
+Route::controller(WishListController::class)->prefix('/wishList')->group(function () {
     Route::post('/store', 'store');
-    Route::get('/count/book', 'countBook');
-    Route::get('/count/audioBook', 'countAudioBook');
-    Route::get('/audioBook', 'getAudioBook');
-    Route::get('/book', 'getBook');
+    Route::get('/audioBook', 'audioBook');
+    Route::get('/book', 'book');
 });
