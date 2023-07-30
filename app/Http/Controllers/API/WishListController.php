@@ -30,6 +30,7 @@ class WishListController extends Controller
     {
         $book = WishList::where('user_id', auth()->user()->id)->where('book_id', $request->book_id)->first();
         if ($book) {
+            $book->delete();
             return SuccessResource::make([
                 'success_code' => 200,
                 'message' => 'Hasapdan ayryldy!'
