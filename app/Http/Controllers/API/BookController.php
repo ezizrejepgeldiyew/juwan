@@ -8,6 +8,7 @@ use App\Http\Resources\API\BookResources;
 use App\Http\Resources\API\CountBookResource;
 use App\Http\Resources\API\MyBookResource;
 use App\Models\Book;
+use App\Models\BookMark;
 use App\Models\Category;
 use App\Models\Favorit;
 use App\Models\ReadBook;
@@ -26,6 +27,12 @@ class BookController extends Controller
     public function selectBook($id)
     {
         $data = Book::with('category', 'author')->find($id);
+        $data['isWishList'] = WishList::where('user_id', auth()->user()->id)
+            ->where('book_id', $id)->count() != 0 ? true : false;
+        $data['isRead'] = ReadBook::where('user_id', auth()->user()->id)
+            ->where('book_id', $id)->count() != 0 ? true : false;
+        $data['isBookMark'] = BookMark::where('user_id', auth()->user()->id)
+            ->where('book_id', $id)->count() != 0 ? true : false;
         return response()->json(compact('data'), 200);
     }
 
@@ -91,15 +98,17 @@ class BookController extends Controller
             'book' => $readBookAll,
         ]);
 
-        $favorit = Favorit::with('favorit')->where('user_id', auth()->user()->id)->where('model_name', 'App\Models\PostBook')->get();
-        $countAudioBook = 0;
-        $countBook = 0;
-        foreach($favorit as $item ) {
-            Book::where('id',$item->favorit->book_id)->where('audio', '!=', null)->first() ? $countAudioBook++ : $countBook++;
-        }
-        $data['favorit'] = CountBookResource::make([
-            'book' => $countBook,
-            'audio_book' => $countAudioBook
+        $bookMarkAudioBook = BookMark::where('user_id', auth()->user()->id)
+            ->whereHas('book', function ($query) {
+                $query->where('audio', '!=', null);
+            })->count();
+        $bookMarkBook = BookMark::where('user_id', auth()->user()->id)
+            ->whereHas('book', function ($query) {
+                $query->where('audio', null);
+            })->count();
+        $data['book_mark'] = CountBookResource::make([
+            'audio_book' => $bookMarkAudioBook,
+            'book' => $bookMarkBook,
         ]);
 
         return response()->json(compact('data'), 200);

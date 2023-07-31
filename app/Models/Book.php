@@ -50,12 +50,17 @@ class Book extends Model
         return $this->hasMany(WishList::class);
     }
 
+    public function bookMark()
+    {
+        return $this->hasMany(BookMark::class);
+    }
+
     // MUTATOR
 
-    protected function is_favorit(): Attribute
+    protected function description(): Attribute
     {
         return Attribute::make(
-            get: fn (string $value) => Favorit::where('user_id', auth()->user()->id)->where('model_name', 'App\Models\PostBook')->where('favorit_id',$this->attributes['id'])->count() 
+            get: fn () => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit eos adipisci, atque amet iusto nulla ad fugit. Quas velit, amet ex, cumque nisi nemo accusamus hic natus quo omnis cupiditate repellat suscipit harum neque iure. Illum amet itaque voluptatem placeat doloribus! Sapiente dolorem cumque ab tempora, sed dolor corporis commodi officiis obcaecati eius molestias aspernatur animi! Animi incidunt consequuntur dignissimos cum recusandae! Accusantium quaerat earum, esse laboriosam excepturi est dicta ab perferendis ex eaque sapiente doloribus culpa, cupiditate quisquam corporis blanditiis iure! Nobis, error necessitatibus. Similique tenetur totam vitae cumque voluptatem tempora itaque commodi ipsa culpa, provident repellendus esse reprehenderit?'
         );
     }
 

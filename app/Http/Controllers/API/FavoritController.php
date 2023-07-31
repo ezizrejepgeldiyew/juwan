@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\API\SuccessResource;
 use App\Models\Favorit;
 
 class FavoritController extends Controller
